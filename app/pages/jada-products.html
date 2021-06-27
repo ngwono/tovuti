@@ -1,0 +1,619 @@
+<h3></h3>
+<div class="col-lg-12" ng-controller="JadaProductsController" >
+   <div class="row">
+      <div class="col-lg-3" >
+         <div class="panel b">
+            <div class="panel-heading text-bold"><h3>JADA SETUP<h3></div>
+            <div class="panel-body bt">
+               <div class="list-group" ng-init="settingActive = 1"><a class="list-group-item" href="" ng-click="settingActive=1" ng-class="{'active': (settingActive == 1)}">Order</a><a class="list-group-item" href="" ng-click="settingActive=2" ng-class="{'active': (settingActive == 2)}">Company</a><a class="list-group-item"
+                  href="" ng-click="settingActive=3" ng-class="{'active': (settingActive == 3)}">Adminstrator</a><a class="list-group-item"
+                  href="" ng-click="settingActive=4" ng-class="{'active': (settingActive == 4)}">Order Preview</a><a class="list-group-item" href="" ng-click="settingActive=5" ng-class="{'active': (settingActive == 5)}">Payment</a><a class="list-group-item" href="" ng-click="settingActive=6" ng-class="{'active': (settingActive == 6)}">Final</a>
+               </div>               
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-9">
+         <div ng-show="settingActive == 1">
+            <div class="col-lg-12">
+                <div class="panel b">
+                  <div class="panel-heading  text-bold"><h3>JADA PLAN<h3></div>
+                  <div class="panel-body bt">
+                     
+                     <div class="col-lg-6">
+                        <h4 class="panel-title mb-lg">Product</h4>
+                        <div class="row">
+                           <div class="form-group">
+                           
+                              <div class="col-lg-4"> <p class="form-control-static mt-lg mb-lg text-bold text-center">JADA Payroll</p></div>
+                              <div class="col-lg-4"> 
+                                    <select class="form-control mt-lg mb-lg" ng-model="plan.employeesMatrix" ng-options="employeesMatrix.id as employeesMatrix.minEmployees+' - '+employeesMatrix.maxEmployees for employeesMatrix in employeesMatrixList" ng-change="amount(plan)">
+                                    <option value="" disabled>Select Employee Size</option>
+                                 </select>
+                               </div>
+                               <div class="col-lg-4">
+                                  <select class="form-control mt-lg mb-lg" ng-model="plan.usersMatrix" ng-options="usersMatrix.id as usersMatrix.users for usersMatrix in usersMatrixList" ng-change="amount(plan)">
+                                 <option value="" disabled>Select No. Of Users</option>
+                              </select>
+                               </div>
+                             
+                           
+                              
+                              
+                           
+                              
+                              
+
+                              <!-- <p class="form-control-static mt-lg mb-lg text-bold text-center">KSH. {{totalAmount}}</p>                              -->
+                              
+                           </div>
+
+                              <!-- <button class="btn btn-danger center-block" type="button" >Add</button> -->
+
+                        </div>                        
+                     </div>
+
+                     <div class="col-lg-6">
+                        <h4 class="panel-title mb-lg">Order Summnary</h4>
+
+                        <table class="table">
+                           <tbody>
+                              <tr ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null"  class="mb-lg">
+                                 <td>JADA Payroll</td>   
+                                 <td></td>
+                                 <td></td>
+                              </tr>
+                              <tr ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null" class="mb-lg">
+                                 <td></td>
+                                 <td>Employees : </td>
+
+                                 <td>
+                                    <div class="text-right text-bold">{{employeesMatrix.amount}}</div>
+                                 </td>
+                              </tr>
+                              <tr  ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null"  class="mb-lg">
+                                 <td></td>
+                                 <td>Users : </td>
+                                 <td>
+                                    <div class="text-right text-bold">{{usersMatrix.amount}}</div>
+                                 </td>
+                              </tr>
+
+                              <tr  ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null"  class="mb-lg">
+                                 <td>Subtotal</td>
+                                 <td></td>
+                                 <td>
+                                    <div class="text-right text-bold">{{totalAmount}}</div>
+                                 </td>
+                              </tr>
+                              <tr  ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null"  class="mb-lg">
+                                 <td>Tax</td>
+                                 <td></td>
+                                 <td>
+                                    <div class="text-right text-bold">0</div>
+                                 </td>
+                              </tr>
+                              <tr  ng-if="employeesMatrix.amount!=null && usersMatrix.amount!=null" class="mb-lg">
+                                 <td>ORDER TOTAL</td>
+                                 <td></td>
+                                 <td>
+                                    <div class="text-right text-bold">KSH. {{totalAmount}}</div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>                                  
+                     </div>                     
+                  </div>
+                  
+               </div>               
+            </div>   
+<!--             <div class="col-lg-6">
+                  <div class="panel b">
+                     
+
+
+                  </div>                
+               
+            </div>    -->        
+         </div>
+         <div ng-show="settingActive == 2">
+            <div class="panel b">
+               <div class="panel-heading  text-bold"><h3>Company</h3></div>
+               <div class="panel-body bt">
+                        <div class="row">
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Name</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="companyName" ng-model="plan.companyName" ng-change="companyCode(plan.companyName)" placeholder="Company Name" />
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Code</label>
+
+                                 <div class="controls">
+                                    <input class="form-control" type="text" disabled name="companyCode" ng-model="plan.companyCode" placeholder="Company Code" />
+                                 </div>
+                              </div>
+                           </div>
+
+                        </div>
+
+                        <div class="row">
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Email Address</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="emailAddress" ng-model="plan.companyEmailAddress" placeholder="Email Address" />
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Company Pin</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="companyPin" ng-model="plan.companyPin" placeholder="Company Pin" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>   
+  
+                        <div class="row">
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Postal Address</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="companyPostalAddress" ng-model="plan.companyPostalAddress" placeholder="Postal Address" />
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Phone Number</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="companyPhoneNumber" ng-model="plan.companyPhoneNumber" placeholder="Phone Number" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>  
+                                                                                                                       
+                        <div class="row">
+                           <div class="col-lg-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Website</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="companyWebsite" ng-model="plan.companyWebsite" placeholder="Website" />
+                                 </div>
+                              </div>
+                           </div>
+
+                        </div> 
+               </div>
+            </div>
+
+         </div>
+         <div ng-show="settingActive == 3">
+            <div class="panel b">
+               <div class="panel-heading text-bold"><h3>Adminstrator</h3></div>
+               <div class="panel-body bt">
+                        <div class="row">
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>First Name</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="firstName" ng-model="plan.firstName" placeholder="First Name" />
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Middle Name</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="middleName" ng-model="plan.middleName" placeholder="Middle Name" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="row">
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Last Name</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="lastName" ng-model="plan.lastName" placeholder="Last Name" />
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Email Address</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="emailAddress" ng-model="plan.emailAddress" placeholder="Email Address" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="row">
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Phone Number</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="phoneNumber" ng-model="plan.phoneNumber" placeholder="Phone Number" />
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Username</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="text" name="userName" ng-model="plan.userName" placeholder="Username" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>   
+                        <div class="row">
+                           <div class="col-md-6 mb-lg">
+                              <div class="form-group">
+                                 <label>Password</label>
+                                 <div class="controls">
+                                    <input class="form-control" type="password" name="password" ng-model="plan.password" placeholder="Password" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>   
+               </div>
+
+            </div>
+         </div>
+         <div ng-show="settingActive == 4">
+            <div class="panel b">
+               <div class="panel-heading text-bold"><h4>Order Preview</h4></div>
+               <div class="panel-body bt">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <h4>Products</h4>
+                        <form class="form-horizontal">
+                           <div class="form-group">
+                              <div class="col-sm-4">Name</div>
+                              <div class="col-sm-8">
+                                 <strong>JADA Payroll</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Employee Size </div>
+                              <div class="col-sm-8">
+                                 <strong ></strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Users Size</div>
+                              <div class="col-sm-8">
+                                 <strong>Addison Nichols</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Tax</div>
+                              <div class="col-sm-8">
+                                 <strong>547</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Total Price</div>
+                              <div class="col-sm-8">
+                                 <strong>KSH. {{totalAmount}}</strong>
+                              </div>
+                           </div>
+
+                        </form>
+                           
+                     </div>
+                  </div>  
+                  <div class="row">
+                     <div class="col-md-12">
+                        <h4>Company</h4>
+                        <form class="form-horizontal">
+                           <div class="form-group">
+                              <div class="col-sm-4">Name</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyName}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Code </div>
+                              <div class="col-sm-8">
+                                 <strong >{{plan.companyCode}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Email Address</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyEmailAddress}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Company Pin</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyPin}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Postal Address</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyPostalAddress}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Phone Number</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyPhoneNumber}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Website</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.companyWebsite}}</strong>
+                              </div>
+                           </div>                           
+                        </form>
+                           
+                     </div>
+                  </div> 
+                  <div class="row">
+                     <div class="col-md-12">
+                        <h4>Adminstrator</h4>
+                        <form class="form-horizontal">
+                           <div class="form-group">
+                              <div class="col-sm-4">Name</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.firstName}} {{plan.middleName}} {{plan.lastName}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Phone Number</div>
+                              <div class="col-sm-8">
+                                 <strong >{{plan.phoneNumber}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Email Address</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.emailAddress}}</strong>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="col-sm-4">Username</div>
+                              <div class="col-sm-8">
+                                 <strong>{{plan.userName}}</strong>
+                              </div>
+                           </div>
+                      
+                          
+                        </form>
+                           
+                     </div>
+                  </div>                                                     
+               </div>
+            </div>
+         </div>         
+         <div ng-show="settingActive == 5">
+            
+               <div class="panel b">
+                  <div class="panel-heading text-bold"><h3>Payment</h3></div>
+                  <div class="panel-body bt "  id="payment-progress">
+                           <div class="form-group">
+                              <div class="radio c-radio">
+                                 <label>
+                                    <input class="form-control" id="chk-payment-method" type="radio" name="paymentMethod" ng-model="plan.paymentMethod" value="1" checked="checked" />
+                                    <span class="fa fa-check"></span>Mpesa</label>
+                              </div>
+                           </div>                      
+
+                           <div class="form-group">
+                              <div class="radio c-radio">
+                                 <label>
+                                    <input class="form-control" id="chk-payment-method" type="radio" name="paymentMethod" ng-model="plan.paymentMethod" value="2" />
+                                    <span class="fa fa-check"></span>Check / Money order</label>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="radio c-radio">
+                                 <label>
+                                    <input class="form-control" id="chk-payment-method" type="radio" name="paymentMethod" ng-model="plan.paymentMethod" value="3" />
+                                    <span class="fa fa-check"></span>Credit Card (saved)</label>
+                              </div>
+                           </div>
+                          
+                           <div class="form-group" ng-if="plan.paymentMethod==1">
+                              <label>Mpesa Phone Number</label>
+                              <input class="form-control" type="text" name="mpesaPhoneNumber" ng-model="plan.mpesaPhoneNumber" value="" />
+                           </div>  
+                           <div class="form-group" ng-if="plan.paymentMethod==1">
+                              <button type="button" class="btn btn-danger" ng-click="mpesaPayment(plan.mpesaPhoneNumber)">Proceed</button>
+                           </div>
+                              <p ng-if="plan.paymentMethod==1">Dear Customer,</p>
+                              <p ng-if="plan.paymentMethod==1">
+If you click proceed, Shortly you will receive an M-PESA prompt on your phone requesting you to enter your M-PESA PIN to complete your payment. Please ensure your phone is on and unlocked to enable you to complete the process. Thank you.</p>
+
+                              <p ng-if="plan.paymentMethod==1">You can also pay using Lipa na MPESA by using the following instructions:</p>
+                              <ol ng-if="plan.paymentMethod==1">
+                                 <li>Dear Customer,</li>
+                                 <li>Go to the M-PESA menu</li>
+                                 <li>Select Lipa na M-PESA</li>
+                                 <li>Select the Paybill option</li>
+                                 <li>Enter business number 927633</li>
+                                 <li>Enter your account number 1055C7123</li>
+                                 <li>Enter the amount <strong>KSH. {{totalAmount}}</strong></li>
+                                 <li>Enter PIN and press OK to send</li>
+                                 <li>You will receive a confirmation SMS with your payment reference number.</li>
+                              </ol>                         
+
+
+                          
+
+                           <div class="form-group" ng-if="plan.paymentMethod==3">
+                              <label>Name on Card*</label>
+                              <input class="form-control" type="text" name="checkout-cc-name" required="" />
+                           </div>
+                           <div class="form-group" ng-if="plan.paymentMethod==3">
+                              <label>Credit Card Type*</label>
+                              <select class="form-control" name="checkout-cc-type" required="">
+                                 <option value="">- Please Select -</option>
+                                 <option value="amex">American Express</option>
+                                 <option value="visa">Visa</option>
+                                 <option value="master">Mastercard</option>
+                              </select>
+                           </div>
+                           <div class="form-group" ng-if="plan.paymentMethod==3">
+                              <label>Credit Card Number*</label>
+                              <input class="form-control" type="text" name="checkout-cc-number" required="" />
+                           </div>
+                           <div class="row" ng-if="plan.paymentMethod==3">
+                              <div class="col-lg-5">
+                                 <div class="form-group">
+                                    <label>Credit Expiration month*</label>
+                                    <select class="form-control" name="checkout-cc-exp-month" required="">
+                                       <option value="">Month</option>
+                                       <option value="1">January</option>
+                                       <option value="2">February</option>
+                                       <option value="3">March</option>
+                                       <option value="4">April</option>
+                                       <option value="5">May</option>
+                                       <option value="6">June</option>
+                                       <option value="7">Jule</option>
+                                       <option value="8">August</option>
+                                       <option value="9">September</option>
+                                       <option value="10">October</option>
+                                       <option value="11">November</option>
+                                       <option value="12">December</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="col-lg-5">
+                                 <div class="form-group">
+                                    <label>Credit Expiration year*</label>
+                                    <select class="form-control" name="checkout-cc-exp-year" required="">
+                                       <option value="">Year</option>
+                                       <option value="2016">2016</option>
+                                       <option value="2017">2017</option>
+                                       <option value="2018">2018</option>
+                                       <option value="2019">2019</option>
+                                       <option value="2020">2020</option>
+                                       <option value="2021">2021</option>
+                                       <option value="2022">2022</option>
+                                       <option value="2023">2023</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="col-lg-2">
+                                 <div class="form-group">
+                                    <label>CNV*</label>
+                                    <input class="form-control" type="text" name="checkout-cc-verification" required="" />
+                                 </div>
+                              </div>
+                           </div>
+
+                  </div>
+
+               </div>
+           
+         </div>
+         <div ng-show="settingActive == 6">
+            
+               <div class="panel b">
+                  <div class="panel-heading text-bold"><h3>Final Section</h3></div>
+                  <div class="panel-body bt "  id="payment-progress">
+                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                           <div class="list-group">
+                              <a class="list-group-item" href="#">
+                                 <table class="wd-wide">
+                                    <tbody>
+                                       <tr>
+                                          <td class="col-lg-4">
+                                             <div class="ph-xl">
+                                                <h4 class="media-box-heading">Client Setup</h4>
+                                                <small class="text-muted">Setting up client details</small>
+                                             </div>
+                                          </td>
+
+                                          <td  class="col-lg-6">
+                                             <div class="ph-xl pv-md ">
+                                                <uib-progressbar class="m0 progress-xl wd-xl" value="80" type="primary">80%</uib-progressbar>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </a>
+                           </div>                     
+                        </div>
+                        
+                     </div> 
+                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                           <div class="list-group">
+                              <a class="list-group-item" href="#">
+                                 <table class="wd-wide">
+                                    <tbody>
+                                       <tr>
+                                          <td class="col-lg-4">
+                                             <div class="ph-xl">
+                                                <h4 class="media-box-heading">Database Setup</h4>
+                                                <small class="text-muted">creating client database</small>
+                                             </div>
+                                          </td>
+
+                                          <td class="col-lg-6" >
+                                             <div class="ph-xl pv-md">
+                                                <uib-progressbar class="m0 progress-xl wd-xl" value="80" type="primary">80%</uib-progressbar>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </a>
+                           </div>                     
+                        </div>
+                        
+                     </div>  
+                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                           <div class="list-group">
+                              <a class="list-group-item" href="#">
+                                 <table class="wd-wide">
+                                    <tbody>
+                                       <tr>
+                                          <td class="col-lg-4">
+                                             <div class="ph-xl">
+                                                <h4 class="media-box-heading">Client Date</h4>
+                                                <small class="text-muted">Creating client data</small>
+                                             </div>
+                                          </td>
+
+                                          <td  class="col-lg-6" >
+                                             <div class="ph-xl pv-md ">
+                                                <uib-progressbar class="m0 progress-xl wd-xl" value="80" type="primary">80%</uib-progressbar>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </a>
+                           </div>                     
+                        </div>
+                        
+                     </div> 
+                                                                
+
+                  </div>
+
+               </div>
+           
+         </div>         
+
+      </div>
+   </div>
+</div>

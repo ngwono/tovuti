@@ -1,0 +1,144 @@
+<h3></h3>
+<div class="col-lg-12" ng-controller="JadaSetupPlanController" >
+   <!--Start Row-->
+   <div class="row">
+      <!--Menu-->
+      <div class="col-lg-3" >
+         <div class="panel b">
+            <div class="panel-heading text-bold"><h3>JADA SETUP<h3>
+               <div class="ball-pulse" ng-show="paymentProgress">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+               </div>                 
+            </div>
+            <div class="panel-body bt">
+               <div class="list-group" ><a class="list-group-item active" ui-sref="page.jada-plan" ng-disabled="paymentProgress">Plan</a><a class="list-group-item"  ui-sref="page.jada-company" ng-disabled="paymentProgress">Company</a><a class="list-group-item"  ui-sref="page.jada-adminstrator" ng-disabled="paymentProgress">Adminstrator</a><a  class="list-group-item"  ui-sref="page.jada-payment">Payment</a>
+               </div>               
+            </div>
+         </div>
+      </div>
+      <!--End Menu-->
+
+      <!--Body-->
+      <div class="col-lg-9">
+          <div class="panel b">
+            <div class="panel-heading  text-bold"><h3>JADA PLAN<h3>
+               <div class="ball-pulse" ng-show="paymentProgress">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+               </div>                 
+            </div>
+            <div class="panel-body bt">
+               
+               <div class="col-lg-6">
+                  <h4 class="panel-title mb-lg">Product</h4>
+                  <div class="row">
+                     
+                     
+                        <div class="row">
+                           <div class="col-lg-12"> <p class="form-control-static mt-lg mb-lg text-bold text-center">JADA Payroll</p></div>
+                        </div>
+                        <div class="form-group">
+                           <div class="row">
+
+                                 <div class="col-lg-4"><label class="form-control text-right">Employee Size : </label></div>
+                                 <div class="col-lg-6"> 
+                                       <select ng-disabled="paymentProgress" class="form-control" ng-model="plan.employeesMatrix" ng-options="employeesMatrix.Id as employeesMatrix.MinEmployees+' - '+employeesMatrix.MaxEmployees for employeesMatrix in employeesMatrixList" ng-change="amount(plan)">
+                                       <option value="" disabled>Select Employee Size</option>
+                                    </select>
+                                  </div>                           
+                              </div>
+                        </div>
+                        <div class="form-group">
+                           <div class="row">
+                              <div class="col-lg-4"><label class="form-control text-right">User Size : </label></div>
+                                  <div class="col-lg-6">
+                                     <select ng-disabled="paymentProgress" class="form-control" ng-model="plan.usersMatrix" ng-options="usersMatrix.Id as usersMatrix.Users for usersMatrix in usersMatrixList" ng-change="amount(plan)">
+                                          <option value="" disabled>Select No. Of Users</option>
+                                       </select>
+                                  </div>
+
+                                                           
+                           </div>
+                        </div>
+                     
+                        
+                        
+                     
+                        
+                        
+
+                        <!-- <p class="form-control-static mt-lg mb-lg text-bold text-center">KSH. {{totalAmount}}</p>                              -->
+                        
+                     
+
+                        <!-- <button class="btn btn-danger center-block" type="button" >Add</button> -->
+
+                  </div>                        
+               </div>
+
+               <div class="col-lg-6">
+                  <h4 class="panel-title mb-lg">Order Summnary</h4>
+
+                  <table class="table">
+                     <tbody>
+                        <tr ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null"  class="mb-lg">
+                           <td>JADA Payroll</td>   
+                           <td></td>
+                           <td></td>
+                        </tr>
+                        <tr ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null" class="mb-lg">
+                           <td></td>
+                           <td>Employees : </td>
+
+                           <td>
+                              <div class="text-right text-bold">{{employeesMatrix.Amount}}</div>
+                           </td>
+                        </tr>
+                        <tr  ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null"  class="mb-lg">
+                           <td></td>
+                           <td>Users : </td>
+                           <td>
+                              <div class="text-right text-bold">{{usersMatrix.Amount}}</div>
+                           </td>
+                        </tr>
+
+                        <tr  ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null"  class="mb-lg">
+                           <td>Subtotal</td>
+                           <td></td>
+                           <td>
+                              <div class="text-right text-bold">{{subTotal}}</div>
+                           </td>
+                        </tr>
+                        <tr  ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null"  class="mb-lg">
+                           <td>VAT</td>
+                           <td></td>
+                           <td>
+                              <div class="text-right text-bold">{{vat}}</div>
+                           </td>
+                        </tr>
+                        <tr  ng-if="employeesMatrix.Amount!=null && usersMatrix.Amount!=null" class="mb-lg">
+                           <td>ORDER TOTAL</td>
+                           <td></td>
+                           <td>
+                              <div class="text-right text-bold">KSH. {{totalAmount}}</div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>                                  
+               </div>   
+                  
+            </div>
+            
+            <div class="panel-body bt">
+               <a class="btn btn-primary pull-right" ui-sref="page.jada-company" ng-disabled="paymentProgress">Next</a>
+            </div>            
+         </div>               
+      </div>   
+      <!--End Body-->
+
+   </div>
+   <!--End Row-->
+</div>
