@@ -20,9 +20,9 @@
                   <td>
                      <div class="buttons">
                         <button class="btn btn-info pull-left mr" type="button" ng-click="show(prodtype)"><em class="fa fa-pencil"></em></button>
-                        <button class="btn btn-sm btn-danger"  ng-click="delete(prodtype)" title="Delete">
+                        <!--<button class="btn btn-sm btn-danger"  ng-click="delete(prodtype)" title="Delete">
                         <em class="fa fa-trash"></em>
-                        </button>
+                        </button>-->
                      </div>
                   </td>
                </tr>
@@ -34,63 +34,26 @@
     <button class="btn btn-info pull-center mr" type="button"  ng-click="home()">Back</button>     
    </div>
 </div>
-<script language="javascript" type="text/javascript">
-function ngdamaf(obj) {
-  obj.value=obj.value.toUpperCase();
-}
-</script>
-<script type="text/ng-template" id="addActivity.html" language="javascript">
-   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Add Activity</h4></div>
-   <div class="modal-body" ng-controller="ActivityController"><!-- START panel-->
+<script type="text/ng-template" id="addProductType.html" language="javascript">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Add Product Type</h4></div>
+   <div class="modal-body" ng-controller="ProductTypeController"><!-- START panel-->
    
-    <form class="form-horizontal" name="activityform" novalidate  >
+    <form class="form-horizontal" name="prodtypeform" novalidate  >
    
       <div class="form-group">
-       <label class="col-lg-3 control-label">Activity Code</label>
+       <label class="col-lg-3 control-label">Description</label>
        <div class="col-lg-9">
-        <input class="form-control" type="text" name="activityCode" ng-model="activity.activityCode" ng-required="true"
-   ng-pattern="/^[\w,]+$/"  placeholder="Enter Activity Code" onkeyup="ngdamaf(this)"/>
-        <span class="text-danger" ng-show="activityform.activityCode.$dirty &amp;&amp; activityform.activityCode.$error.required">This field is required</span>
-          <span class="text-danger" ng-if="activityform.activityCode.$dirty &amp;&amp; activityform.activityCode.$error.pattern">This field is invalid:No special characters allowed </span>
+        <input class="form-control" type="text" name="description" ng-model="prodtype.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodtypeform.description.$dirty &amp;&amp; prodtypeform.description.$error.required">This field is required</span>
       </div>
-    </div>
-    <div class="form-group">
-     <label class="col-lg-3 control-label">Activity</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="activity" ng-model="activity.activity" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Enter Activity"/>
-   
-         <span class="text-danger" ng-show="activityform.activity.$dirty &amp;&amp; activityform.activity.$error.required">This field is required
-    </span>
-          <span class="text-danger" ng-if="activityform.activity.$dirty &amp;&amp; activityform.activity.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>
-       <div class="form-group">
-     <label class="col-lg-3 control-label">Billable</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="billable" ng-model="activity.billable" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Billable?"/>
-   
-         <span class="text-danger" ng-show="activityform.billable.$dirty &amp;&amp; activityform.billable.$error.required">This field is required
-    </span>
-          <span class="text-danger" ng-if="activityform.billable.$dirty &amp;&amp; activityform.billable.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>
-          <div class="form-group">
-     <label class="col-lg-3 control-label">Rate</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="rate" ng-model="activity.rate" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Rate"/>
-   
-         <span class="text-danger" ng-show="activityform.rate.$dirty &amp;&amp; activityform.rate.$error.required">This field is required
-    </span>
-          <span class="text-danger" ng-if="activityform.rate.$dirty &amp;&amp; activityform.rate.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>  
+    </div> 
    
    
    
    <div class="form-group">
    <div class="col-lg-offset-3 col-lg-9">
-    <button class="btn btn-info btn-sm" ng-disabled="activityform.$invalid" ng-click="submitActivity(activityform)">Save and New</button>
-      <button class="btn btn-info btn-sm" ng-disabled="activityform.$invalid" ng-click="CloseActivity(activity)">Save and Close</button>
+    <button class="btn btn-info btn-sm" ng-disabled="prodtypeform.$invalid" ng-click="submitProdType(prodtypeform)">Save and New</button>
+      <button class="btn btn-info btn-sm" ng-disabled="prodtypeform.$invalid" ng-click="CloseProdType(prodtype)">Save and Close</button>
       <button class="btn btn-warning btn-sm" type="reset">Reset</button>
    </div>
    </div>
@@ -100,65 +63,33 @@ function ngdamaf(obj) {
    </form>
    <!-- END panel--></div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">Close</button></div>
 </script>
-<script type="text/ng-template" id="editActivity.html">
-   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Edit Activity</h4></div>
-   <div class="modal-body" ng-controller="ActivityController" ><!-- START panel-->
+<script type="text/ng-template" id="editProductType.html">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Edit Product Type</h4></div>
+   <div class="modal-body" ng-controller="ProductTypeController" ><!-- START panel-->
    
-    <form class="form-horizontal" name="activityform" novalidate >
+    <form class="form-horizontal" name="prodtypeform" novalidate >
    
       <div class="form-group">
      
        <div class="col-lg-12">
-        <input class="form-control" type="hidden" name="id" ng-model="activity.id" />
+        <input class="form-control" type="hidden" name="id" ng-model="prodtype.id" />
       </div>
     </div>
+     
      <div class="form-group">
-       <label class="col-lg-3 control-label">Activity Code</label>
+       <label class="col-lg-3 control-label">Description</label>
        <div class="col-lg-9">
-        <input class="form-control" type="text" name="activityCode" ng-model="activity.activityCode" ng-required="true"
-         ng-pattern="/^[\w,]+$/" placeholder="Activity Code"/>
-   
-          <span class="text-danger" ng-show="activityform.activityCode.$dirty &amp;&amp; activityform.activityCode.$error.required">This field is required</span>
-                <span class="text-danger" ng-if="activityform.activityCode.$dirty &amp;&amp; activityform.activityCode.$error.pattern">This field is invalid:No special characters allowed </span>
+        <input class="form-control" type="text" name="description" ng-model="prodtype.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodtypeform.description.$dirty &amp;&amp; prodtypeform.description.$error.required">This field is required</span>
       </div>
     </div>
-    <div class="form-group">
-     <label class="col-lg-3 control-label">Activity</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="activity" ng-model="activity.activity" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Enter Activity"/>
-   
-       <span class="text-danger" ng-show="activityform.activity.$dirty &amp;&amp; activityform.activity.$error.required">This field is required
-          </span>
-                <span class="text-danger" ng-if="activityform.activity.$dirty &amp;&amp; activityform.activity.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>
-  <div class="form-group">
-     <label class="col-lg-3 control-label">Billable</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="billable" ng-model="activity.billable" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Billable?"/>
-   
-       <span class="text-danger" ng-show="activityform.billable.$dirty &amp;&amp; activityform.billable.$error.required">This field is required
-          </span>
-                <span class="text-danger" ng-if="activityform.billable.$dirty &amp;&amp; activityform.billable.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>
-  <div class="form-group">
-     <label class="col-lg-3 control-label">Rate</label>
-     <div class="col-lg-9">
-      <input class="form-control" type="text" name="rate" ng-model="activity.rate" ng-pattern="/^[a-zA-Z0-9\s.\-_']+$/"  ng-required="true"  placeholder="Rate"/>
-   
-       <span class="text-danger" ng-show="activityform.rate.$dirty &amp;&amp; activityform.rate.$error.required">This field is required
-          </span>
-                <span class="text-danger" ng-if="activityform.rate.$dirty &amp;&amp; activityform.rate.$error.pattern">This field is invalid:No special characters allowed </span>
-    </div>
-   </div>
    
    
    
    
                     <div class="form-group">
                          <div class="col-lg-offset-3 col-lg-9">
-                          <button class="btn btn-info btn-sm" ng-disabled="activityform.$invalid" ng-click="updateActivity(activity)">Update</button>
+                          <button class="btn btn-info btn-sm" ng-disabled="prodtypeform.$invalid" ng-click="updateProdType(prodtype)">Update</button>
                             <button class="btn btn-warning btn-sm" type="reset">Reset</button>
                         </div>
                       </div>

@@ -1,7 +1,7 @@
 {
-  "name": "angle",
+  "name": "tovuti",
   "version": "0.0.0",
-  "description": "Angle - Bootstrap Admin App + AngularJS",
+  "description": "Tovuti Product Management Challenge",
   "author": "@themicon_co",
   "devDependencies": {
     "bower-npm-resolver": "0.9.1",

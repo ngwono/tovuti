@@ -4,8 +4,8 @@ angular.module('angle').constant('baseURL',
 //angular.module('angle').constant('baseURL',
 //'http://localhost:50392/');
 
-//angular.module('angle').constant('baseJadaERPURL',
-//'https://jadaerpbackend.azurewebsites.net/');// hosted
 angular.module('angle').constant('baseJadaERPURL',
-'http://localhost:61490/');
+'https://tovutibackend.azurewebsites.net/');// hosted
+//angular.module('angle').constant('baseJadaERPURL',
+//'http://localhost:61490/');
 

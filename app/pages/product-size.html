@@ -1,0 +1,119 @@
+<div class="panel b" ng-controller="ProductSizeController">
+   <div class="panel-heading">
+      <h4>Product Sizes
+      </h4>
+   </div>
+   <div class="panel-body bt">
+      <button class="btn btn-info" type="button" ng-click="open()">Add New</button>
+   </div>
+   <div class="panel-body">
+      <div class="table-responsive">
+         <table class="table table-striped" datatable="ng">
+            <thead>
+               <tr>
+                  <th>Size Abbreviation</th>
+                  <th>Size Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="prodsize in prodsizes">
+                <td>{{prodsize.abbreviation}}</td>
+                  <td>{{prodsize.description}}</td>
+                  <td>
+                     <div class="buttons">
+                        <button class="btn btn-info pull-left mr" type="button" ng-click="show(prodsize)"><em class="fa fa-pencil"></em></button>
+                        <button class="btn btn-sm btn-danger"  ng-click="delete(prodsize)" title="Delete">
+                        <em class="fa fa-trash"></em>
+                        </button>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="buttons col-lg-offset-3">
+    <button class="btn btn-info pull-center mr" type="button"  ng-click="home()">Back</button>     
+   </div>
+</div>
+<script type="text/ng-template" id="addProductSize.html" language="javascript">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Add Product Size</h4></div>
+   <div class="modal-body" ng-controller="ProductSizeController"><!-- START panel-->
+   
+    <form class="form-horizontal" name="prodsizeform" novalidate  >
+   
+      <div class="form-group">
+       <label class="col-lg-3 control-label">Code</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="abbreviation" ng-model="prodsize.abbreviation" ng-required="true"  placeholder="Enter Abbreviation"/>
+        <span class="text-danger" ng-show="prodsizeform.abbreviation.$dirty &amp;&amp; prodsizeform.abbreviation.$error.required">This field is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+       <label class="col-lg-3 control-label">Description</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="description" ng-model="prodsize.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodsizeform.description.$dirty &amp;&amp; prodsizeform.description.$error.required">This field is required</span>
+      </div>
+    </div> 
+   
+   
+   
+   <div class="form-group">
+   <div class="col-lg-offset-3 col-lg-9">
+    <button class="btn btn-info btn-sm" ng-disabled="prodsizeform.$invalid" ng-click="submitProdSiz(prodsizeform)">Save and New</button>
+      <button class="btn btn-info btn-sm" ng-disabled="prodsizeform.$invalid" ng-click="CloseProdSiz(prodsize)">Save and Close</button>
+      <button class="btn btn-warning btn-sm" type="reset">Reset</button>
+   </div>
+   </div>
+   
+                 <div class="text-center text-success" margin-top="md" ng-show="SuccessMsg">{{SuccessMsg}}</div>
+        <div class="text-center text-danger"  margin-top="md" ng-show="errorMsg">{{errorMsg}}</div>
+   </form>
+   <!-- END panel--></div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">Close</button></div>
+</script>
+<script type="text/ng-template" id="editProductSize.html">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Edit Product Size</h4></div>
+   <div class="modal-body" ng-controller="ProductSizeController" ><!-- START panel-->
+   
+    <form class="form-horizontal" name="prodsizeform" novalidate >
+   
+   <div class="form-group">
+     
+       <div class="col-lg-12">
+        <input class="form-control" type="hidden" name="id" ng-model="prodsize.id" />
+      </div>
+    </div>
+
+      <div class="form-group">
+       <label class="col-lg-3 control-label">Code</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="abbreviation" ng-model="prodsize.abbreviation" ng-required="true"  placeholder="Enter Abbreviation"/>
+        <span class="text-danger" ng-show="prodsizeform.abbreviation.$dirty &amp;&amp; prodsizeform.abbreviation.$error.required">This field is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+       <label class="col-lg-3 control-label">Description</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="description" ng-model="prodsize.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodsizeform.description.$dirty &amp;&amp; prodsizeform.description.$error.required">This field is required</span>
+      </div>
+    </div>  
+   
+   
+   
+   
+                    <div class="form-group">
+                         <div class="col-lg-offset-3 col-lg-9">
+                          <button class="btn btn-info btn-sm" ng-disabled="prodsizeform.$invalid" ng-click="updateProdSiz(prodsize)">Update</button>
+                            <button class="btn btn-warning btn-sm" type="reset">Reset</button>
+                        </div>
+                      </div>
+   <!-- 
+                       <div class="alert alert-success text-center" margin-top="md" ng-show="SuccessMsg">{{reg.authMsg}}</div>
+              <div class="alert alert-danger text-center" margin-top="md" ng-show="error">{{errorMsg}}</div> -->
+   </form>
+   <!-- END panel--></div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">Close</button></div>
+</script>

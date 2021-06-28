@@ -1,0 +1,119 @@
+<div class="panel b" ng-controller="ProductColorController">
+   <div class="panel-heading">
+      <h4>Product Colors
+      </h4>
+   </div>
+   <div class="panel-body bt">
+      <button class="btn btn-info" type="button" ng-click="open()">Add New</button>
+   </div>
+   <div class="panel-body">
+      <div class="table-responsive">
+         <table class="table table-striped" datatable="ng">
+            <thead>
+               <tr>
+                  <th>Color Code</th>
+                  <th>Color Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="prodcolor in prodcolors">
+                <td>{{prodcolor.code}}</td>
+                  <td>{{prodcolor.description}}</td>
+                  <td>
+                     <div class="buttons">
+                        <button class="btn btn-info pull-left mr" type="button" ng-click="show(prodcolor)"><em class="fa fa-pencil"></em></button>
+                        <button class="btn btn-sm btn-danger"  ng-click="delete(prodcolor)" title="Delete">
+                        <em class="fa fa-trash"></em>
+                        </button>
+                     </div>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="buttons col-lg-offset-3">
+    <button class="btn btn-info pull-center mr" type="button"  ng-click="home()">Back</button>     
+   </div>
+</div>
+<script type="text/ng-template" id="addProductColor.html" language="javascript">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Add Product Color</h4></div>
+   <div class="modal-body" ng-controller="ProductColorController"><!-- START panel-->
+   
+    <form class="form-horizontal" name="prodcolorform" novalidate  >
+   
+      <div class="form-group">
+       <label class="col-lg-3 control-label">Code</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="code" ng-model="prodcolor.code" ng-required="true"  placeholder="Enter Code"/>
+        <span class="text-danger" ng-show="prodcolorform.code.$dirty &amp;&amp; prodcolorform.code.$error.required">This field is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+       <label class="col-lg-3 control-label">Description</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="description" ng-model="prodcolor.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodcolorform.description.$dirty &amp;&amp; prodcolorform.description.$error.required">This field is required</span>
+      </div>
+    </div> 
+   
+   
+   
+   <div class="form-group">
+   <div class="col-lg-offset-3 col-lg-9">
+    <button class="btn btn-info btn-sm" ng-disabled="prodcolorform.$invalid" ng-click="submitProdCol(prodcolorform)">Save and New</button>
+      <button class="btn btn-info btn-sm" ng-disabled="prodcolorform.$invalid" ng-click="CloseProdCol(prodcolor)">Save and Close</button>
+      <button class="btn btn-warning btn-sm" type="reset">Reset</button>
+   </div>
+   </div>
+   
+                 <div class="text-center text-success" margin-top="md" ng-show="SuccessMsg">{{SuccessMsg}}</div>
+        <div class="text-center text-danger"  margin-top="md" ng-show="errorMsg">{{errorMsg}}</div>
+   </form>
+   <!-- END panel--></div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">Close</button></div>
+</script>
+<script type="text/ng-template" id="editProductColor.html">
+   <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button><h4 class="modal-title" id="myMapModalLabel">Edit Product Color</h4></div>
+   <div class="modal-body" ng-controller="ProductColorController" ><!-- START panel-->
+   
+    <form class="form-horizontal" name="prodcolorform" novalidate >
+   
+   <div class="form-group">
+     
+       <div class="col-lg-12">
+        <input class="form-control" type="hidden" name="id" ng-model="prodcolor.id" />
+      </div>
+    </div>
+
+      <div class="form-group">
+       <label class="col-lg-3 control-label">Code</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="code" ng-model="prodcolor.code" ng-required="true"  placeholder="Enter Code"/>
+        <span class="text-danger" ng-show="prodcolorform.code.$dirty &amp;&amp; prodcolorform.code.$error.required">This field is required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+       <label class="col-lg-3 control-label">Description</label>
+       <div class="col-lg-9">
+        <input class="form-control" type="text" name="description" ng-model="prodcolor.description" ng-required="true"  placeholder="Enter Description"/>
+        <span class="text-danger" ng-show="prodcolorform.description.$dirty &amp;&amp; prodcolorform.description.$error.required">This field is required</span>
+      </div>
+    </div> 
+   
+   
+   
+   
+                    <div class="form-group">
+                         <div class="col-lg-offset-3 col-lg-9">
+                          <button class="btn btn-info btn-sm" ng-disabled="prodcolorform.$invalid" ng-click="updateProdCol(prodcolor)">Update</button>
+                            <button class="btn btn-warning btn-sm" type="reset">Reset</button>
+                        </div>
+                      </div>
+   <!-- 
+                       <div class="alert alert-success text-center" margin-top="md" ng-show="SuccessMsg">{{reg.authMsg}}</div>
+              <div class="alert alert-danger text-center" margin-top="md" ng-show="error">{{errorMsg}}</div> -->
+   </form>
+   <!-- END panel--></div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">Close</button></div>
+</script>

@@ -57,13 +57,13 @@
     'use strict';
 
     angular
-        .module('app.charts', []);
+        .module('app.colors', []);
 })();
 (function() {
     'use strict';
 
     angular
-        .module('app.colors', []);
+        .module('app.charts', []);
 })();
 (function() {
     'use strict';
@@ -95,13 +95,13 @@
     'use strict';
 
     angular
-        .module('app.elements', []);
+        .module('app.extras', []);
 })();
 (function() {
     'use strict';
 
     angular
-        .module('app.extras', []);
+        .module('app.elements', []);
 })();
 (function() {
     'use strict';
@@ -113,13 +113,13 @@
     'use strict';
 
     angular
-        .module('app.forms', []);
+        .module('app.icons', []);
 })();
 (function() {
     'use strict';
 
     angular
-        .module('app.icons', []);
+        .module('app.forms', []);
 })();
 (function() {
     'use strict';
@@ -137,19 +137,13 @@
     'use strict';
 
     angular
-        .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.locale', []);
 })();
 (function() {
     'use strict';
 
     angular
-        .module('app.mailbox', []);
+        .module('app.loadingbar', []);
 })();
 (function() {
     'use strict';
@@ -161,7 +155,19 @@
     'use strict';
 
     angular
+        .module('app.mailbox', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.navsearch', []);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.notify', []);
 })();
 (function() {
     'use strict';
@@ -196,12 +202,6 @@
 
     angular
         .module('app.settings', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.notify', []);
 })();
 (function() {
     'use strict';
@@ -242,10 +242,10 @@ angular.module('angle').constant('baseURL',
 //angular.module('angle').constant('baseURL',
 //'http://localhost:50392/');
 
-//angular.module('angle').constant('baseJadaERPURL',
-//'https://jadaerpbackend.azurewebsites.net/');// hosted
 angular.module('angle').constant('baseJadaERPURL',
-'http://localhost:61490/');
+'https://tovutibackend.azurewebsites.net/');// hosted
+//angular.module('angle').constant('baseJadaERPURL',
+//'http://localhost:61490/');
 
 
 /**=========================================================
@@ -807,6 +807,56 @@ angular.module('angle').constant('baseJadaERPURL',
 
         }
     }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.colors')
+        .constant('APP_COLORS', {
+          'primary':                '#5d9cec',
+          'success':                '#27c24c',
+          'info':                   '#23b7e5',
+          'warning':                '#ff902b',
+          'danger':                 '#f05050',
+          'inverse':                '#131e26',
+          'green':                  '#37bc9b',
+          'pink':                   '#f532e5',
+          'purple':                 '#7266ba',
+          'dark':                   '#3a3f51',
+          'yellow':                 '#fad732',
+          'gray-darker':            '#232735',
+          'gray-dark':              '#3a3f51',
+          'gray':                   '#dde6e9',
+          'gray-light':             '#e4eaec',
+          'gray-lighter':           '#edf1f2'
+        })
+        ;
+})();
+/**=========================================================
+ * Module: colors.js
+ * Services to retrieve global colors
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.colors')
+        .service('Colors', Colors);
+
+    Colors.$inject = ['APP_COLORS'];
+    function Colors(APP_COLORS) {
+        this.byName = byName;
+
+        ////////////////
+
+        function byName(name) {
+          return (APP_COLORS[name] || '#fff');
+        }
+    }
+
 })();
 
 /**=========================================================
@@ -2121,56 +2171,6 @@ angular.module('angle').constant('baseJadaERPURL',
     'use strict';
 
     angular
-        .module('app.colors')
-        .constant('APP_COLORS', {
-          'primary':                '#5d9cec',
-          'success':                '#27c24c',
-          'info':                   '#23b7e5',
-          'warning':                '#ff902b',
-          'danger':                 '#f05050',
-          'inverse':                '#131e26',
-          'green':                  '#37bc9b',
-          'pink':                   '#f532e5',
-          'purple':                 '#7266ba',
-          'dark':                   '#3a3f51',
-          'yellow':                 '#fad732',
-          'gray-darker':            '#232735',
-          'gray-dark':              '#3a3f51',
-          'gray':                   '#dde6e9',
-          'gray-light':             '#e4eaec',
-          'gray-lighter':           '#edf1f2'
-        })
-        ;
-})();
-/**=========================================================
- * Module: colors.js
- * Services to retrieve global colors
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.colors')
-        .service('Colors', Colors);
-
-    Colors.$inject = ['APP_COLORS'];
-    function Colors(APP_COLORS) {
-        this.byName = byName;
-
-        ////////////////
-
-        function byName(name) {
-          return (APP_COLORS[name] || '#fff');
-        }
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.core')
         .config(coreConfig);
 
@@ -2710,6 +2710,552 @@ angular.module('angle').constant('baseJadaERPURL',
         }
     }
 })();
+/**=========================================================
+ * Module: article.js
+ =========================================================*/
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .controller('ArticleController', ArticleController);
+
+    function ArticleController() {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+          vm.htmlContent = 'Article content...';
+
+          vm.postDemo = {};
+          vm.postDemo.tags = ['coding', 'less'];
+          vm.availableTags = ['coding', 'less', 'sass', 'angularjs', 'node', 'expressJS'];
+          vm.postDemo.categories = ['JAVASCRIPT','WEB'];
+          vm.availableCategories = ['JAVASCRIPT','WEB', 'BOOTSTRAP', 'SERVER', 'HTML5', 'CSS'];
+
+          vm.reviewers = [
+            { name: 'Adam',      email: 'adam@email.com',      age: 10 },
+            { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
+            { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
+            { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
+            { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
+            { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
+            { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
+            { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
+          ];
+
+
+          vm.alerts = [
+            { type: 'info', msg: 'There is an autosaved version of this article that is more recent than the version below. <a href="#" class="text-white">Restore</a>' }
+          ];
+
+          vm.closeAlert = function(index) {
+            vm.alerts.splice(index, 1);
+          };
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .controller('CalendarController', CalendarController);
+
+    CalendarController.$inject = ['$scope', '$compile', 'uiCalendarConfig'];
+    function CalendarController($scope, $compile, uiCalendarConfig) {
+        var vm = this;
+        vm.title = 'CalendarController';
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $scope.changeTo = 'Hungarian';
+            /* event source that pulls from google.com */
+            $scope.eventSource = {
+                url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+                className: 'gcal-event', // an option!
+                currentTimezone: 'America/Chicago' // an option!
+            };
+            /* event source that contains custom events on the scope */
+            $scope.events = [{
+                title: 'All Day Event',
+                start: new Date(y, m, 1),
+                backgroundColor: '#f56954', //red
+                borderColor: '#f56954' //red
+            }, {
+                title: 'Long Event',
+                start: new Date(y, m, d - 5),
+                end: new Date(y, m, d - 2),
+                backgroundColor: '#f39c12', //yellow
+                borderColor: '#f39c12' //yellow
+            }, {
+                id: 999,
+                title: 'Repeating Event',
+                start: new Date(y, m, d + 4, 16, 0),
+                allDay: false,
+                backgroundColor: '#00c0ef', //Info (aqua)
+                borderColor: '#00c0ef' //Info (aqua)
+            }, {
+                title: 'Birthday Party',
+                start: new Date(y, m, d + 1, 19, 0),
+                end: new Date(y, m, d + 1, 22, 30),
+                allDay: false,
+                backgroundColor: '#00a65a', //Success (green)
+                borderColor: '#00a65a' //Success (green)
+            }, {
+                title: 'Click for Google',
+                start: new Date(y, m, 28),
+                end: new Date(y, m, 29),
+                url: 'http://google.com/',
+                backgroundColor: '#2f80e7', //Primary (light-blue)
+                borderColor: '#2f80e7' //Primary (light-blue)
+            }];
+            /* event source that calls a function on every view switch */
+            $scope.eventsF = function(start, end, timezone, callback) {
+                var s = new Date(start).getTime() / 1000;
+                var e = new Date(end).getTime() / 1000;
+                var m = new Date(start).getMonth();
+                var events = [{
+                    title: 'Feed Me ' + m,
+                    start: s + (50000),
+                    end: s + (100000),
+                    allDay: false,
+                    className: ['customFeed']
+                }];
+                callback(events);
+            };
+
+            $scope.calEventsExt = {
+                color: '#f00',
+                textColor: 'white',
+                events: [{
+                    type: 'party',
+                    title: 'Lunch',
+                    start: new Date(y, m, d, 12, 0),
+                    end: new Date(y, m, d, 14, 0),
+                    allDay: false,
+                    backgroundColor: '#9289ca', //pink
+                    borderColor: '#9289ca' //pink
+                }, {
+                    type: 'party',
+                    title: 'Lunch 2',
+                    start: new Date(y, m, d, 12, 0),
+                    end: new Date(y, m, d, 14, 0),
+                    allDay: false,
+                    backgroundColor: '#9289ca', //pink
+                    borderColor: '#9289ca' //pink
+                }, {
+                    type: 'party',
+                    title: 'Click for Google',
+                    start: new Date(y, m, 28),
+                    end: new Date(y, m, 29),
+                    url: 'http://google.com/',
+                    backgroundColor: '#9289ca', //pink
+                    borderColor: '#9289ca' //pink
+
+                }]
+            };
+            /* alert on eventClick */
+            $scope.alertOnEventClick = function(date, jsEvent, view) {
+                $scope.alertMessage = (date.title + ' was clicked ');
+            };
+            /* alert on Drop */
+            $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view) {
+                $scope.alertMessage = ('Event Droped');// to make dayDelta ' + delta);
+            };
+            /* alert on Resize */
+            $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view) {
+                $scope.alertMessage = ('Event Resized'); // to make dayDelta ' + delta);
+            };
+            /* add and removes an event source of choice */
+            $scope.addRemoveEventSource = function(sources, source) {
+                var canAdd = 0;
+                angular.forEach(sources, function(value, key) {
+                    if (sources[key] === source) {
+                        sources.splice(key, 1);
+                        canAdd = 1;
+                    }
+                });
+                if (canAdd === 0) {
+                    sources.push(source);
+                }
+            };
+            /* add custom event*/
+            $scope.addEvent = function() {
+                $scope.events.push({
+                    title: 'Open Sesame',
+                    start: new Date(y, m, 28),
+                    end: new Date(y, m, 29),
+                    className: ['openSesame']
+                });
+            };
+            /* remove event */
+            $scope.remove = function(index) {
+                $scope.events.splice(index, 1);
+            };
+            /* Change View */
+            $scope.changeView = function(view, calendar) {
+                uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
+            };
+            /* Change View */
+            $scope.renderCalender = function(calendar) {
+                if (uiCalendarConfig.calendars[calendar]) {
+                    uiCalendarConfig.calendars[calendar].fullCalendar('render');
+                }
+            };
+            /* Render Tooltip */
+            $scope.eventRender = function(event, element, view) {
+                element.attr({
+                    'tooltip': event.title,
+                    'tooltip-append-to-body': true
+                });
+                $compile(element)($scope);
+            };
+            /* config object */
+            $scope.uiConfig = {
+                calendar: {
+                    height: 450,
+                    editable: true,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    buttonIcons: { // note the space at the beginning
+                        prev: ' fa fa-caret-left',
+                        next: ' fa fa-caret-right'
+                    },
+                    buttonText: {
+                        today: 'today',
+                        month: 'month',
+                        week: 'week',
+                        day: 'day'
+                    },
+                    eventClick: $scope.alertOnEventClick,
+                    eventDrop: $scope.alertOnDrop,
+                    eventResize: $scope.alertOnResize,
+                    eventRender: $scope.eventRender
+                }
+            };
+
+            $scope.changeLang = function() {
+                if ($scope.changeTo === 'Hungarian') {
+                    $scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
+                    $scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
+                    $scope.changeTo = 'English';
+                } else {
+                    $scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                    $scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                    $scope.changeTo = 'Hungarian';
+                }
+            };
+            /* event sources array*/
+            // $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+            $scope.eventSources = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+        }
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .service('LoadTreeService', LoadTreeService);
+
+    LoadTreeService.$inject = ['$resource'];
+    function LoadTreeService($resource) {
+        // Loads the list of files to populate the treeview
+        return $resource('server/editor/filetree.json');
+    }
+
+})();
+/**=========================================================
+ * Module: code-editor.js
+ * Codemirror code editor controller
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .controller('CodeEditorController', CodeEditorController);
+
+    CodeEditorController.$inject = ['$rootScope', '$scope', '$http', '$ocLazyLoad', 'filetree'];
+    function CodeEditorController($rootScope, $scope, $http, $ocLazyLoad, filetree) {
+        var vm = this;
+
+        layout();
+        activate();
+
+        ////////////////
+        /*jshint -W106*/
+        function layout() {
+          // Setup the layout mode
+          $rootScope.app.useFullLayout = true;
+          $rootScope.app.hiddenFooter = true;
+          $rootScope.app.layout.isCollapsed = true;
+
+          // Restore layout for demo
+          $scope.$on('$destroy', function(){
+              $rootScope.app.useFullLayout = false;
+              $rootScope.app.hiddenFooter = false;
+          });
+
+        }
+
+        function activate() {
+
+          // Set the tree data into the scope
+          vm.filetree_data = filetree;
+
+          // Available themes
+          vm.editorThemes = ['3024-day','3024-night','ambiance-mobile','ambiance','base16-dark','base16-light','blackboard','cobalt','eclipse','elegant','erlang-dark','lesser-dark','mbo','mdn-like','midnight','monokai','neat','neo','night','paraiso-dark','paraiso-light','pastel-on-dark','rubyblue','solarized','the-matrix','tomorrow-night-eighties','twilight','vibrant-ink','xq-dark','xq-light'];
+
+          vm.editorOpts = {
+            mode: 'javascript',
+            lineNumbers: true,
+            matchBrackets: true,
+            theme: 'mbo',
+            viewportMargin: Infinity
+          };
+
+          vm.refreshEditor = 0;
+
+          // Load dinamically the stylesheet for the selected theme
+          // You can use ozLazyLoad to load also the mode js based
+          // on the file extension that is loaded (see handle_filetree)
+          vm.loadTheme = function() {
+            var BASE = 'vendor/codemirror/theme/';
+            $ocLazyLoad.load(BASE + vm.editorOpts.theme + '.css');
+            vm.refreshEditor = !vm.refreshEditor;
+          };
+          // load default theme
+          vm.loadTheme(vm.editorOpts.theme);
+          // Add some initial text
+          vm.code = '// Open a file from the left menu \n' +
+                        '// It will be requested to the server and loaded into the editor\n' +
+                        '// Also try adding a New File from the toolbar\n';
+
+
+          // Tree
+
+          var selectedBranch;
+          vm.handle_filetree = function(branch) {
+
+            selectedBranch = branch;
+
+            var basePath = 'server/editor/';
+            var isFolder = !!branch.children.length;
+
+            console.log('You selected: ' + branch.label + ' - isFolder? ' + isFolder);
+
+            if ( ! isFolder ) {
+
+              $http
+                .get( basePath + branch.path )
+                .then(function(response){
+
+                  console.log('Loaded.. ' + branch.path);
+                  // set the new code into the editor
+                  vm.code = response.data;
+
+                  vm.editorOpts.mode = detectMode(branch.path);
+                  console.log( 'Mode is: ' + vm.editorOpts.mode);
+
+                });
+            }
+          };
+
+          function detectMode(file) {
+            var ext = file.split('.');
+            ext = ext ? ext[ext.length - 1] : '';
+            switch (ext) {
+              case 'html':  return 'htmlmixed';
+              case 'css':   return 'css';
+              default:      return 'javascript';
+            }
+          }
+
+          var tree;
+          tree = vm.filetree = {};
+
+          // Adds a new branch to the tree
+          vm.new_filetree = function() {
+            var b;
+            b = tree.get_selected_branch();
+
+            // if we select a leaf -> select the parent folder
+            if ( b && b.children.length === 0 ) {
+              b = tree.get_parent_branch(b);
+            }
+
+            return tree.add_branch(b, {
+              'label': 'another.html',
+              'path': 'source/another.html'
+            });
+          };
+        }
+    }
+})();
+
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .controller('TodoController', TodoController);
+
+    TodoController.$inject = ['$filter'];
+    function TodoController($filter) {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+           vm.items = [
+            {
+              todo: {title: 'Meeting with Mark at 7am.', description: 'Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet. '},
+              complete: true
+            },
+            {
+              todo: {title: 'Call Sonya. Talk about the new project.', description: ''},
+              complete: false
+            },
+            {
+              todo: {title: 'Find a new place for vacations', description: ''},
+              complete: false
+            }
+            ];
+          
+          vm.editingTodo = false;
+          vm.todo = {};
+
+          vm.addTodo = function() {
+            
+            if( vm.todo.title === '' ) return;
+            if( !vm.todo.description ) vm.todo.description = '';
+            
+            if( vm.editingTodo ) {
+              vm.todo = {};
+              vm.editingTodo = false;
+            }
+            else {
+              vm.items.push({todo: angular.copy(vm.todo), complete: false});
+              vm.todo.title = '';
+              vm.todo.description = '';
+            }
+          };
+          
+          vm.editTodo = function(index, $event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            vm.todo = vm.items[index].todo;
+            vm.editingTodo = true;
+          };
+
+          vm.removeTodo = function(index/*, $event*/) {
+            vm.items.splice(index, 1);
+          };
+          
+          vm.clearAll = function() {
+            vm.items = [];
+          };
+
+          vm.totalCompleted = function() {
+            return $filter('filter')(vm.items, function(item){
+              return item.complete;
+            }).length;
+          };
+
+          vm.totalPending = function() {
+            return $filter('filter')(vm.items, function(item){
+              return !item.complete;
+            }).length;
+          };
+
+        }
+    }
+})();
+
+/**=========================================================
+ * Module: word-cloud.js
+ * Controller for jqCloud
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.extras')
+        .controller('WordCloudController', WordCloudController);
+
+    function WordCloudController() {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+
+          vm.words = [
+              {
+                text: 'Lorem',
+                weight: 13
+                //link: 'http://themicon.co'
+              }, {
+                text: 'Ipsum',
+                weight: 10.5
+              }, {
+                text: 'Dolor',
+                weight: 9.4
+              }, {
+                text: 'Sit',
+                weight: 8
+              }, {
+                text: 'Amet',
+                weight: 6.2
+              }, {
+                text: 'Consectetur',
+                weight: 5
+              }, {
+                text: 'Adipiscing',
+                weight: 5
+              }, {
+                text: 'Sit',
+                weight: 8
+              }, {
+                text: 'Amet',
+                weight: 6.2
+              }, {
+                text: 'Consectetur',
+                weight: 5
+              }, {
+                text: 'Adipiscing',
+                weight: 5
+              }
+          ];
+        }
+    }
+})();
+
 
 (function() {
     'use strict';
@@ -3692,552 +4238,6 @@ angular.module('angle').constant('baseJadaERPURL',
 })();
 
 /**=========================================================
- * Module: article.js
- =========================================================*/
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .controller('ArticleController', ArticleController);
-
-    function ArticleController() {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          vm.htmlContent = 'Article content...';
-
-          vm.postDemo = {};
-          vm.postDemo.tags = ['coding', 'less'];
-          vm.availableTags = ['coding', 'less', 'sass', 'angularjs', 'node', 'expressJS'];
-          vm.postDemo.categories = ['JAVASCRIPT','WEB'];
-          vm.availableCategories = ['JAVASCRIPT','WEB', 'BOOTSTRAP', 'SERVER', 'HTML5', 'CSS'];
-
-          vm.reviewers = [
-            { name: 'Adam',      email: 'adam@email.com',      age: 10 },
-            { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
-            { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
-            { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
-            { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
-            { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
-            { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
-            { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
-          ];
-
-
-          vm.alerts = [
-            { type: 'info', msg: 'There is an autosaved version of this article that is more recent than the version below. <a href="#" class="text-white">Restore</a>' }
-          ];
-
-          vm.closeAlert = function(index) {
-            vm.alerts.splice(index, 1);
-          };
-        }
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .controller('CalendarController', CalendarController);
-
-    CalendarController.$inject = ['$scope', '$compile', 'uiCalendarConfig'];
-    function CalendarController($scope, $compile, uiCalendarConfig) {
-        var vm = this;
-        vm.title = 'CalendarController';
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-
-            $scope.changeTo = 'Hungarian';
-            /* event source that pulls from google.com */
-            $scope.eventSource = {
-                url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-                className: 'gcal-event', // an option!
-                currentTimezone: 'America/Chicago' // an option!
-            };
-            /* event source that contains custom events on the scope */
-            $scope.events = [{
-                title: 'All Day Event',
-                start: new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor: '#f56954' //red
-            }, {
-                title: 'Long Event',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                backgroundColor: '#f39c12', //yellow
-                borderColor: '#f39c12' //yellow
-            }, {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d + 4, 16, 0),
-                allDay: false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            }, {
-                title: 'Birthday Party',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor: '#00a65a' //Success (green)
-            }, {
-                title: 'Click for Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/',
-                backgroundColor: '#2f80e7', //Primary (light-blue)
-                borderColor: '#2f80e7' //Primary (light-blue)
-            }];
-            /* event source that calls a function on every view switch */
-            $scope.eventsF = function(start, end, timezone, callback) {
-                var s = new Date(start).getTime() / 1000;
-                var e = new Date(end).getTime() / 1000;
-                var m = new Date(start).getMonth();
-                var events = [{
-                    title: 'Feed Me ' + m,
-                    start: s + (50000),
-                    end: s + (100000),
-                    allDay: false,
-                    className: ['customFeed']
-                }];
-                callback(events);
-            };
-
-            $scope.calEventsExt = {
-                color: '#f00',
-                textColor: 'white',
-                events: [{
-                    type: 'party',
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false,
-                    backgroundColor: '#9289ca', //pink
-                    borderColor: '#9289ca' //pink
-                }, {
-                    type: 'party',
-                    title: 'Lunch 2',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false,
-                    backgroundColor: '#9289ca', //pink
-                    borderColor: '#9289ca' //pink
-                }, {
-                    type: 'party',
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/',
-                    backgroundColor: '#9289ca', //pink
-                    borderColor: '#9289ca' //pink
-
-                }]
-            };
-            /* alert on eventClick */
-            $scope.alertOnEventClick = function(date, jsEvent, view) {
-                $scope.alertMessage = (date.title + ' was clicked ');
-            };
-            /* alert on Drop */
-            $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view) {
-                $scope.alertMessage = ('Event Droped');// to make dayDelta ' + delta);
-            };
-            /* alert on Resize */
-            $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view) {
-                $scope.alertMessage = ('Event Resized'); // to make dayDelta ' + delta);
-            };
-            /* add and removes an event source of choice */
-            $scope.addRemoveEventSource = function(sources, source) {
-                var canAdd = 0;
-                angular.forEach(sources, function(value, key) {
-                    if (sources[key] === source) {
-                        sources.splice(key, 1);
-                        canAdd = 1;
-                    }
-                });
-                if (canAdd === 0) {
-                    sources.push(source);
-                }
-            };
-            /* add custom event*/
-            $scope.addEvent = function() {
-                $scope.events.push({
-                    title: 'Open Sesame',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    className: ['openSesame']
-                });
-            };
-            /* remove event */
-            $scope.remove = function(index) {
-                $scope.events.splice(index, 1);
-            };
-            /* Change View */
-            $scope.changeView = function(view, calendar) {
-                uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
-            };
-            /* Change View */
-            $scope.renderCalender = function(calendar) {
-                if (uiCalendarConfig.calendars[calendar]) {
-                    uiCalendarConfig.calendars[calendar].fullCalendar('render');
-                }
-            };
-            /* Render Tooltip */
-            $scope.eventRender = function(event, element, view) {
-                element.attr({
-                    'tooltip': event.title,
-                    'tooltip-append-to-body': true
-                });
-                $compile(element)($scope);
-            };
-            /* config object */
-            $scope.uiConfig = {
-                calendar: {
-                    height: 450,
-                    editable: true,
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    buttonIcons: { // note the space at the beginning
-                        prev: ' fa fa-caret-left',
-                        next: ' fa fa-caret-right'
-                    },
-                    buttonText: {
-                        today: 'today',
-                        month: 'month',
-                        week: 'week',
-                        day: 'day'
-                    },
-                    eventClick: $scope.alertOnEventClick,
-                    eventDrop: $scope.alertOnDrop,
-                    eventResize: $scope.alertOnResize,
-                    eventRender: $scope.eventRender
-                }
-            };
-
-            $scope.changeLang = function() {
-                if ($scope.changeTo === 'Hungarian') {
-                    $scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-                    $scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-                    $scope.changeTo = 'English';
-                } else {
-                    $scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                    $scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-                    $scope.changeTo = 'Hungarian';
-                }
-            };
-            /* event sources array*/
-            // $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-            $scope.eventSources = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-        }
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .service('LoadTreeService', LoadTreeService);
-
-    LoadTreeService.$inject = ['$resource'];
-    function LoadTreeService($resource) {
-        // Loads the list of files to populate the treeview
-        return $resource('server/editor/filetree.json');
-    }
-
-})();
-/**=========================================================
- * Module: code-editor.js
- * Codemirror code editor controller
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .controller('CodeEditorController', CodeEditorController);
-
-    CodeEditorController.$inject = ['$rootScope', '$scope', '$http', '$ocLazyLoad', 'filetree'];
-    function CodeEditorController($rootScope, $scope, $http, $ocLazyLoad, filetree) {
-        var vm = this;
-
-        layout();
-        activate();
-
-        ////////////////
-        /*jshint -W106*/
-        function layout() {
-          // Setup the layout mode
-          $rootScope.app.useFullLayout = true;
-          $rootScope.app.hiddenFooter = true;
-          $rootScope.app.layout.isCollapsed = true;
-
-          // Restore layout for demo
-          $scope.$on('$destroy', function(){
-              $rootScope.app.useFullLayout = false;
-              $rootScope.app.hiddenFooter = false;
-          });
-
-        }
-
-        function activate() {
-
-          // Set the tree data into the scope
-          vm.filetree_data = filetree;
-
-          // Available themes
-          vm.editorThemes = ['3024-day','3024-night','ambiance-mobile','ambiance','base16-dark','base16-light','blackboard','cobalt','eclipse','elegant','erlang-dark','lesser-dark','mbo','mdn-like','midnight','monokai','neat','neo','night','paraiso-dark','paraiso-light','pastel-on-dark','rubyblue','solarized','the-matrix','tomorrow-night-eighties','twilight','vibrant-ink','xq-dark','xq-light'];
-
-          vm.editorOpts = {
-            mode: 'javascript',
-            lineNumbers: true,
-            matchBrackets: true,
-            theme: 'mbo',
-            viewportMargin: Infinity
-          };
-
-          vm.refreshEditor = 0;
-
-          // Load dinamically the stylesheet for the selected theme
-          // You can use ozLazyLoad to load also the mode js based
-          // on the file extension that is loaded (see handle_filetree)
-          vm.loadTheme = function() {
-            var BASE = 'vendor/codemirror/theme/';
-            $ocLazyLoad.load(BASE + vm.editorOpts.theme + '.css');
-            vm.refreshEditor = !vm.refreshEditor;
-          };
-          // load default theme
-          vm.loadTheme(vm.editorOpts.theme);
-          // Add some initial text
-          vm.code = '// Open a file from the left menu \n' +
-                        '// It will be requested to the server and loaded into the editor\n' +
-                        '// Also try adding a New File from the toolbar\n';
-
-
-          // Tree
-
-          var selectedBranch;
-          vm.handle_filetree = function(branch) {
-
-            selectedBranch = branch;
-
-            var basePath = 'server/editor/';
-            var isFolder = !!branch.children.length;
-
-            console.log('You selected: ' + branch.label + ' - isFolder? ' + isFolder);
-
-            if ( ! isFolder ) {
-
-              $http
-                .get( basePath + branch.path )
-                .then(function(response){
-
-                  console.log('Loaded.. ' + branch.path);
-                  // set the new code into the editor
-                  vm.code = response.data;
-
-                  vm.editorOpts.mode = detectMode(branch.path);
-                  console.log( 'Mode is: ' + vm.editorOpts.mode);
-
-                });
-            }
-          };
-
-          function detectMode(file) {
-            var ext = file.split('.');
-            ext = ext ? ext[ext.length - 1] : '';
-            switch (ext) {
-              case 'html':  return 'htmlmixed';
-              case 'css':   return 'css';
-              default:      return 'javascript';
-            }
-          }
-
-          var tree;
-          tree = vm.filetree = {};
-
-          // Adds a new branch to the tree
-          vm.new_filetree = function() {
-            var b;
-            b = tree.get_selected_branch();
-
-            // if we select a leaf -> select the parent folder
-            if ( b && b.children.length === 0 ) {
-              b = tree.get_parent_branch(b);
-            }
-
-            return tree.add_branch(b, {
-              'label': 'another.html',
-              'path': 'source/another.html'
-            });
-          };
-        }
-    }
-})();
-
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .controller('TodoController', TodoController);
-
-    TodoController.$inject = ['$filter'];
-    function TodoController($filter) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-           vm.items = [
-            {
-              todo: {title: 'Meeting with Mark at 7am.', description: 'Pellentesque convallis mauris eu elit imperdiet quis eleifend quam aliquet. '},
-              complete: true
-            },
-            {
-              todo: {title: 'Call Sonya. Talk about the new project.', description: ''},
-              complete: false
-            },
-            {
-              todo: {title: 'Find a new place for vacations', description: ''},
-              complete: false
-            }
-            ];
-          
-          vm.editingTodo = false;
-          vm.todo = {};
-
-          vm.addTodo = function() {
-            
-            if( vm.todo.title === '' ) return;
-            if( !vm.todo.description ) vm.todo.description = '';
-            
-            if( vm.editingTodo ) {
-              vm.todo = {};
-              vm.editingTodo = false;
-            }
-            else {
-              vm.items.push({todo: angular.copy(vm.todo), complete: false});
-              vm.todo.title = '';
-              vm.todo.description = '';
-            }
-          };
-          
-          vm.editTodo = function(index, $event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            vm.todo = vm.items[index].todo;
-            vm.editingTodo = true;
-          };
-
-          vm.removeTodo = function(index/*, $event*/) {
-            vm.items.splice(index, 1);
-          };
-          
-          vm.clearAll = function() {
-            vm.items = [];
-          };
-
-          vm.totalCompleted = function() {
-            return $filter('filter')(vm.items, function(item){
-              return item.complete;
-            }).length;
-          };
-
-          vm.totalPending = function() {
-            return $filter('filter')(vm.items, function(item){
-              return !item.complete;
-            }).length;
-          };
-
-        }
-    }
-})();
-
-/**=========================================================
- * Module: word-cloud.js
- * Controller for jqCloud
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.extras')
-        .controller('WordCloudController', WordCloudController);
-
-    function WordCloudController() {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-
-          vm.words = [
-              {
-                text: 'Lorem',
-                weight: 13
-                //link: 'http://themicon.co'
-              }, {
-                text: 'Ipsum',
-                weight: 10.5
-              }, {
-                text: 'Dolor',
-                weight: 9.4
-              }, {
-                text: 'Sit',
-                weight: 8
-              }, {
-                text: 'Amet',
-                weight: 6.2
-              }, {
-                text: 'Consectetur',
-                weight: 5
-              }, {
-                text: 'Adipiscing',
-                weight: 5
-              }, {
-                text: 'Sit',
-                weight: 8
-              }, {
-                text: 'Amet',
-                weight: 6.2
-              }, {
-                text: 'Consectetur',
-                weight: 5
-              }, {
-                text: 'Adipiscing',
-                weight: 5
-              }
-          ];
-        }
-    }
-})();
-
-/**=========================================================
  * Module: flatdoc.js
  * Creates the flatdoc markup and initializes the plugin
  =========================================================*/
@@ -4293,6 +4293,39 @@ angular.module('angle').constant('baseJadaERPURL',
                 $doc.off('flatdoc:ready');
             });
 
+        }
+    }
+
+})();
+
+/**=========================================================
+ * Module: skycons.js
+ * Include any animated weather icon from Skycons
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.icons')
+        .directive('skycon', skycon);
+
+    function skycon () {
+
+        var directive = {
+            link: link,
+            restrict: 'A'
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+          var skycons = new Skycons({'color': (attrs.color || 'white')});
+
+          element.html('<canvas width="' + attrs.width + '" height="' + attrs.height + '"></canvas>');
+
+          skycons.add(element.children()[0], attrs.skycon);
+
+          skycons.play();
         }
     }
 
@@ -5271,38 +5304,1055 @@ angular.module('angle').constant('baseJadaERPURL',
 })();
 
 /**=========================================================
- * Module: skycons.js
- * Include any animated weather icon from Skycons
- =========================================================*/
+   * Module: modals.js Product By Category controller
+   * Provides a simple way to implement bootstrap modals from templates
+   =========================================================*/
+(function () {
+  'use strict';
 
-(function() {
-    'use strict';
+  angular
+    .module('app.bootstrapui')
+    .controller('ProductByCategoryController', ProductByCategoryController);
 
-    angular
-        .module('app.icons')
-        .directive('skycon', skycon);
+  ProductByCategoryController.$inject = ['$http', 'baseJadaERPURL', '$scope', '$compile', '$rootScope', '$uibModal', 'ProductService', 'ProductSizeService', 'ProductColorService', 'ProductCategoryService', 'ProductTypeService', '$stateParams', '$state', '$localStorage', 'SweetAlert'];
 
-    function skycon () {
+  function ProductByCategoryController($http, baseJadaERPURL, $scope, $compile, $rootScope, $uibModal, ProductService, ProductSizeService, ProductColorService, ProductCategoryService, ProductTypeService, $stateParams, $state, $localStorage, SweetAlert) {
+    var vm = this;
 
-        var directive = {
-            link: link,
-            restrict: 'A'
-        };
-        return directive;
+    activate();
 
-        function link(scope, element, attrs) {
-          var skycons = new Skycons({'color': (attrs.color || 'white')});
+    ////////////////
 
-          element.html('<canvas width="' + attrs.width + '" height="' + attrs.height + '"></canvas>');
+    function activate() {
 
-          skycons.add(element.children()[0], attrs.skycon);
+      var SuccessMsg;
+      var errorMsg;
 
-          skycons.play();
-        }
+      $scope.categories = ProductCategoryService.query({
+      });
+
+      $scope.catSearch = function(product){
+          ProductService.query({id:product.category}).$promise.then(function(resData){
+                $scope.prodData=resData;
+                $scope.products=$scope.prodData;
+
+              });
+
+      }
+
+      $scope.home = function(){
+        $state.go("page.management-menu");
+      } 
+
+
     }
+  }
+
+})();
+/**=========================================================
+   * Module: modals.js Product Category controller
+   * Provides a simple way to implement bootstrap modals from templates
+   =========================================================*/
+(function () {
+  'use strict';
+
+  angular
+    .module('app.bootstrapui')
+    .controller('ProductCategoryController', ProductCategoryController);
+
+  ProductCategoryController.$inject = ['$scope', '$rootScope', '$uibModal', 'ProductCategoryService', '$stateParams', '$state', '$localStorage', 'SweetAlert'];
+
+  function ProductCategoryController($scope, $rootScope, $uibModal, ProductCategoryService, $stateParams, $state, $localStorage, SweetAlert) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+
+      var SuccessMsg;
+      var errorMsg;
+
+      $scope.categories = ProductCategoryService.query({
+      });
+
+
+      console.log($scope.categories);
+      $scope.loadCategories = function () {
+        $scope.categories = ProductCategoryService.query({
+        });
+
+      }
+
+      $rootScope.$on("CallLoadCategories", function () {
+        $scope.loadCategories();
+      });
+
+      $scope.delete = function (category) {
+        SweetAlert.swal({
+          title: 'Are you sure?',
+          text: 'You are about to delete Product Category!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Yes, delete it!',
+          closeOnConfirm: false
+        }, function (data) {
+          if (data) {
+            category.$remove({
+            }).then(function () {
+              $scope.loadCategories();
+              SweetAlert.swal('Deleted!');
+            }, function () {
+              SweetAlert.swal('Something Went Wrong!');
+            });
+
+
+          }
+
+        });
+
+
+      }
+
+      $scope.home = function(){
+        $state.go("page.management-menu");
+      } 
+
+
+      $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'addProductCategory.html',
+          controller: ModalOpenInstanceCtrl,
+          size: size
+        });
+
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+          state.text('Modal dismissed with OK status');
+        }, function () {
+          state.text('Modal dismissed with Cancel status');
+        });
+      };
+
+
+      $scope.show = function (_category) {
+        // $scope.x = x;
+        var category = _category;
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'editProductCategory.html',
+          controller: ModalInstanceCtrl,
+          resolve: {
+            category: function () {
+              return category;
+            }
+          }
+          // scope : $scope
+        });
+      };
+
+
+      // Please note that $uibModalInstance represents a modal window (instance) dependency.
+      // It is not the same as the $uibModal service used above.
+
+      ModalOpenInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductCategoryService'];
+
+      function ModalOpenInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductCategoryService) {
+
+
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+        $scope.category = new ProductCategoryService();
+
+        $scope.submitProdCat = function (categoryform) {
+          $scope.category.$save({
+          }).then(function (data) {
+              var response = angular.fromJson(data);
+
+              if (response.Status == "1") {
+                $scope.errorMsg = false;
+                $scope.SuccessMsg = response.Message;
+              } else {
+
+                $scope.SuccessMsg = false;
+                $scope.errorMsg = response.Message;
+                // vm.auth=true;
+              }
+              $rootScope.$emit("CallLoadCategories", {});
+              $scope.prodReset(categoryform);
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+
+        $scope.catReset = function (categoryform) {
+
+          $scope.categoryform = {};
+          $scope.category = "";
+          categoryform.$setPristine();
+        };
+
+        $scope.CloseProdCat = function (category) {
+          var savecategory = new ProductCategoryService(category);
+          savecategory.$save({
+          }).then(function (data) {
+
+              $rootScope.$emit("CallLoadCategories", {});
+              $scope.ok();
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+      }
+
+      ModalInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductCategoryService', 'category'];
+
+      function ModalInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductCategoryService, category) {
+        var id = category.id;
+        console.log(id);
+
+        $scope.category = category;
+        console.log(category);
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+
+     $scope.updateProdCat = function (category) {
+
+
+          category.$update({
+          }).then(function (data) {
+            var response = angular.fromJson(data);
+            console.log($scope.category);
+            // $scope.authMsg=response.Message;
+            if (response.Status == "1") {
+              $scope.errorMsg = false;
+              $scope.SuccessMsg = response.Message;
+              $scope.category = ProductCategoryService.get({
+                id: id,
+              });
+            } else {
+
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = response.Message;
+
+            }
+            $rootScope.$emit("CallLoadCategories", {});
+          }, function () {
+            $scope.SuccessMsg = false;
+            $scope.errorMsg = 'Server Request Error';
+          });
+
+        };
+
+      }
+    }
+  }
 
 })();
 
+  (function() {
+      'use strict';
+
+      angular
+          .module('app.jada')
+          .factory('ProductCategoryService', ProductCategoryService);
+
+      ProductCategoryService.$inject = ['$resource','baseJadaERPURL'];
+      function ProductCategoryService($resource,baseJadaERPURL) {
+       var data=$resource(baseJadaERPURL+'api/productcategory/:id', {id: '@id'},
+      { 'get':    {method:'GET', isArray:false},
+    'save':   {method:'POST'},
+    'query':  {method:'GET', isArray:true},
+    'update': { method:'PUT' },
+    'remove': {method:'DELETE'},
+    'delete': {method:'DELETE'} 
+  });
+       return data
+            
+         
+      }
+
+  })();
+/**=========================================================
+   * Module: modals.js Product Color controller
+   * Provides a simple way to implement bootstrap modals from templates
+   =========================================================*/
+(function () {
+  'use strict';
+
+  angular
+    .module('app.bootstrapui')
+    .controller('ProductColorController', ProductColorController);
+
+  ProductColorController.$inject = ['$scope', '$rootScope', '$uibModal', 'ProductColorService', '$stateParams', '$state', '$localStorage', 'SweetAlert'];
+
+  function ProductColorController($scope, $rootScope, $uibModal, ProductColorService, $stateParams, $state, $localStorage, SweetAlert) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+
+      var SuccessMsg;
+      var errorMsg;
+
+      $scope.prodcolors = ProductColorService.query({
+      });
+
+
+      console.log($scope.prodcolors);
+      $scope.loadProductColors= function () {
+        $scope.prodcolors = ProductColorService.query({
+        });
+
+      }
+
+      $rootScope.$on("CallLoadProductColors", function () {
+        $scope.loadProductColors();
+      });
+
+      $scope.delete = function (prodcolor) {
+        SweetAlert.swal({
+          title: 'Are you sure?',
+          text: 'You are about to delete Product Color!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Yes, delete it!',
+          closeOnConfirm: false
+        }, function (data) {
+          if (data) {
+            prodcolor.$remove({
+            }).then(function () {
+              $scope.loadProductColors();
+              SweetAlert.swal('Deleted!');
+            }, function () {
+              SweetAlert.swal('Something Went Wrong!');
+            });
+
+
+          }
+
+        });
+
+
+      }
+
+      $scope.home = function(){
+        $state.go("page.management-menu");
+      } 
+
+
+      $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'addProductColor.html',
+          controller: ModalOpenInstanceCtrl,
+          size: size
+        });
+
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+          state.text('Modal dismissed with OK status');
+        }, function () {
+          state.text('Modal dismissed with Cancel status');
+        });
+      };
+
+
+      $scope.show = function (_prodcolor) {
+        // $scope.x = x;
+        var prodcolor = _prodcolor;
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'editProductColor.html',
+          controller: ModalInstanceCtrl,
+          resolve: {
+            prodcolor: function () {
+              return prodcolor;
+            }
+          }
+          // scope : $scope
+        });
+      };
+
+
+      // Please note that $uibModalInstance represents a modal window (instance) dependency.
+      // It is not the same as the $uibModal service used above.
+
+      ModalOpenInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductColorService'];
+
+      function ModalOpenInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductColorService) {
+
+
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+        $scope.prodcolor = new ProductColorService();
+
+        $scope.submitProdCol = function (prodcolorform) {
+          $scope.prodcolor.$save({
+          }).then(function (data) {
+              var response = angular.fromJson(data);
+
+              if (response.Status == "1") {
+                $scope.errorMsg = false;
+                $scope.SuccessMsg = response.Message;
+              } else {
+
+                $scope.SuccessMsg = false;
+                $scope.errorMsg = response.Message;
+                // vm.auth=true;
+              }
+              $rootScope.$emit("CallLoadProductColors", {});
+              $scope.prodReset(prodcolorform);
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+
+        $scope.colReset = function (prodcolorform) {
+
+          $scope.prodcolorform = {};
+          $scope.prodcolor = "";
+          prodcolorform.$setPristine();
+        };
+
+        $scope.CloseProdCol = function (prodcolor) {
+          var saveprodcolor = new ProductColorService(prodcolor);
+          saveprodcolor.$save({
+          }).then(function (data) {
+
+              $rootScope.$emit("CallLoadProductColors", {});
+              $scope.ok();
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+      }
+
+      ModalInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductColorService', 'prodcolor'];
+
+      function ModalInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductColorService, prodcolor) {
+        var id = prodcolor.id;
+        console.log(id);
+
+        $scope.prodcolor = prodcolor;
+        console.log(prodcolor);
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+
+     $scope.updateProdCol= function (prodcolor) {
+
+
+          prodcolor.$update({
+          }).then(function (data) {
+            var response = angular.fromJson(data);
+            console.log($scope.prodcolor);
+            // $scope.authMsg=response.Message;
+            if (response.Status == "1") {
+              $scope.errorMsg = false;
+              $scope.SuccessMsg = response.Message;
+              $scope.prodcolor = ProductColorService.get({
+                id: id,
+              });
+            } else {
+
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = response.Message;
+
+            }
+            $rootScope.$emit("CallLoadProductColors", {});
+          }, function () {
+            $scope.SuccessMsg = false;
+            $scope.errorMsg = 'Server Request Error';
+          });
+
+        };
+
+      }
+    }
+  }
+
+})();
+
+  (function() {
+      'use strict';
+
+      angular
+          .module('app.jada')
+          .factory('ProductColorService', ProductColorService);
+
+      ProductColorService.$inject = ['$resource','baseJadaERPURL'];
+      function ProductColorService($resource,baseJadaERPURL) {
+       var data=$resource(baseJadaERPURL+'api/productcolor/:id', {id: '@id'},
+      { 'get':    {method:'GET', isArray:false},
+    'save':   {method:'POST'},
+    'query':  {method:'GET', isArray:true},
+    'update': { method:'PUT' },
+    'remove': {method:'DELETE'},
+    'delete': {method:'DELETE'} 
+  });
+       return data
+            
+         
+      }
+
+  })();
+/**=========================================================
+   * Module: modals.js Product controller
+   * Provides a simple way to implement bootstrap modals from templates
+   =========================================================*/
+(function () {
+  'use strict';
+
+  angular
+    .module('app.bootstrapui')
+    .controller('ProductController', ProductController);
+
+  ProductController.$inject = ['$scope', '$rootScope', '$uibModal', 'ProductService', 'ProductSizeService', 'ProductColorService', 'ProductCategoryService', 'ProductTypeService', '$stateParams', '$state', '$localStorage', 'SweetAlert'];
+
+  function ProductController($scope, $rootScope, $uibModal, ProductService, ProductSizeService, ProductColorService, ProductCategoryService, ProductTypeService, $stateParams, $state, $localStorage, SweetAlert) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+
+      var SuccessMsg;
+      var errorMsg;
+
+      $scope.products = ProductService.query({
+      });
+
+      $scope.categories = ProductCategoryService.query({
+      });
+
+      $scope.prodtypes = ProductTypeService.query({
+      });
+
+      $scope.prodcolors = ProductColorService.query({
+      });
+
+      $scope.prodsizes = ProductSizeService.query({
+      });
+
+
+      console.log($scope.products);
+      $scope.loadProducts= function () {
+        $scope.products = ProductService.query({
+        });
+
+      }
+
+      $rootScope.$on("CallLoadProducts", function () {
+        $scope.loadProducts();
+      });
+
+      $scope.delete = function (product) {
+        SweetAlert.swal({
+          title: 'Are you sure?',
+          text: 'You are about to delete Product !',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Yes, delete it!',
+          closeOnConfirm: false
+        }, function (data) {
+          if (data) {
+            product.$remove({
+            }).then(function () {
+              $scope.loadProducts();
+              SweetAlert.swal('Deleted!');
+            }, function () {
+              SweetAlert.swal('Something Went Wrong!');
+            });
+
+
+          }
+
+        });
+
+
+      }
+
+      $scope.home = function(){
+        $state.go("page.management-menu");
+      } 
+
+
+      $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'addProduct.html',
+          controller: ModalOpenInstanceCtrl,
+          size: size
+        });
+
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+          state.text('Modal dismissed with OK status');
+        }, function () {
+          state.text('Modal dismissed with Cancel status');
+        });
+      };
+
+
+      $scope.show = function (_product) {
+        // $scope.x = x;
+        var product = _product;
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'editProduct.html',
+          controller: ModalInstanceCtrl,
+          resolve: {
+            product: function () {
+              return product;
+            }
+          }
+          // scope : $scope
+        });
+      };
+
+
+      // Please note that $uibModalInstance represents a modal window (instance) dependency.
+      // It is not the same as the $uibModal service used above.
+
+      ModalOpenInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductService'];
+
+      function ModalOpenInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductService) {
+
+
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+        $scope.product = new ProductService();
+
+        $scope.submitProd = function (productform) {
+          $scope.product.$save({
+          }).then(function (data) {
+              var response = angular.fromJson(data);
+
+              if (response.Status == "1") {
+                $scope.errorMsg = false;
+                $scope.SuccessMsg = response.Message;
+              } else {
+
+                $scope.SuccessMsg = false;
+                $scope.errorMsg = response.Message;
+                // vm.auth=true;
+              }
+              $rootScope.$emit("CallLoadProducts", {});
+              $scope.proReset(productform);
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+
+        $scope.prReset = function (productform) {
+
+          $scope.productform = {};
+          $scope.product = "";
+          productform.$setPristine();
+        };
+
+        $scope.CloseProd = function (product) {
+          var saveproduct = new ProductService(product);
+          saveproduct.$save({
+          }).then(function (data) {
+
+              $rootScope.$emit("CallLoadProducts", {});
+              $scope.ok();
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+      }
+
+      ModalInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductService', 'product'];
+
+      function ModalInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductService, product) {
+        var id = product.id;
+        console.log(id);
+
+        $scope.product = product;
+        console.log(product);
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+
+     $scope.updateProd= function (product) {
+
+
+          product.$update({
+          }).then(function (data) {
+            var response = angular.fromJson(data);
+            console.log($scope.product);
+            // $scope.authMsg=response.Message;
+            if (response.Status == "1") {
+              $scope.errorMsg = false;
+              $scope.SuccessMsg = response.Message;
+              $scope.product = ProductService.get({
+                id: id,
+              });
+            } else {
+
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = response.Message;
+
+            }
+            $rootScope.$emit("CallLoadProducts", {});
+          }, function () {
+            $scope.SuccessMsg = false;
+            $scope.errorMsg = 'Server Request Error';
+          });
+
+        };
+
+      }
+    }
+  }
+
+})();
+
+  (function() {
+      'use strict';
+
+      angular
+          .module('app.jada')
+          .factory('ProductService', ProductService);
+
+      ProductService.$inject = ['$resource','baseJadaERPURL'];
+      function ProductService($resource,baseJadaERPURL) {
+       var data=$resource(baseJadaERPURL+'api/product/:id', {id: '@id'},
+      { 'get':    {method:'GET', isArray:false},
+    'save':   {method:'POST'},
+    'query':  {method:'GET', isArray:true},
+    'update': { method:'PUT' },
+    'remove': {method:'DELETE'},
+    'delete': {method:'DELETE'} 
+  });
+       return data
+            
+         
+      }
+
+  })();
+/**=========================================================
+   * Module: modals.js Product Size controller
+   * Provides a simple way to implement bootstrap modals from templates
+   =========================================================*/
+(function () {
+  'use strict';
+
+  angular
+    .module('app.bootstrapui')
+    .controller('ProductSizeController', ProductSizeController);
+
+  ProductSizeController.$inject = ['$scope', '$rootScope', '$uibModal', 'ProductSizeService', '$stateParams', '$state', '$localStorage', 'SweetAlert'];
+
+  function ProductSizeController($scope, $rootScope, $uibModal, ProductSizeService, $stateParams, $state, $localStorage, SweetAlert) {
+    var vm = this;
+
+    activate();
+
+    ////////////////
+
+    function activate() {
+
+      var SuccessMsg;
+      var errorMsg;
+
+      $scope.prodsizes = ProductSizeService.query({
+      });
+
+
+      console.log($scope.prodsizes);
+      $scope.loadProductSizes= function () {
+        $scope.prodsizes = ProductSizeService.query({
+        });
+
+      }
+
+      $rootScope.$on("CallLoadProductsizes", function () {
+        $scope.loadProductSizes();
+      });
+
+      $scope.delete = function (prodsize) {
+        SweetAlert.swal({
+          title: 'Are you sure?',
+          text: 'You are about to delete Product Size!',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Yes, delete it!',
+          closeOnConfirm: false
+        }, function (data) {
+          if (data) {
+            prodsize.$remove({
+            }).then(function () {
+              $scope.loadProductSizes();
+              SweetAlert.swal('Deleted!');
+            }, function () {
+              SweetAlert.swal('Something Went Wrong!');
+            });
+
+
+          }
+
+        });
+
+
+      }
+
+      $scope.home = function(){
+        $state.go("page.management-menu");
+      } 
+
+
+      $scope.open = function (size) {
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'addProductSize.html',
+          controller: ModalOpenInstanceCtrl,
+          size: size
+        });
+
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+          state.text('Modal dismissed with OK status');
+        }, function () {
+          state.text('Modal dismissed with Cancel status');
+        });
+      };
+
+
+      $scope.show = function (_prodsize) {
+        // $scope.x = x;
+        var prodsize = _prodsize;
+
+        var modalInstance = $uibModal.open({
+          templateUrl: 'editProductSize.html',
+          controller: ModalInstanceCtrl,
+          resolve: {
+            prodsize: function () {
+              return prodsize;
+            }
+          }
+          // scope : $scope
+        });
+      };
+
+
+      // Please note that $uibModalInstance represents a modal window (instance) dependency.
+      // It is not the same as the $uibModal service used above.
+
+      ModalOpenInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductSizeService'];
+
+      function ModalOpenInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductSizeService) {
+
+
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+        $scope.prodsize = new ProductSizeService();
+
+        $scope.submitProdSiz = function (prodsizeform) {
+          $scope.prodsize.$save({
+          }).then(function (data) {
+              var response = angular.fromJson(data);
+
+              if (response.Status == "1") {
+                $scope.errorMsg = false;
+                $scope.SuccessMsg = response.Message;
+              } else {
+
+                $scope.SuccessMsg = false;
+                $scope.errorMsg = response.Message;
+                // vm.auth=true;
+              }
+              $rootScope.$emit("CallLoadProductsizes", {});
+              $scope.sizReset(prodsizeform);
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+
+        $scope.szReset = function (prodsizeform) {
+
+          $scope.prodsizeform = {};
+          $scope.prodsize = "";
+          prodsizeform.$setPristine();
+        };
+
+        $scope.CloseProdSiz = function (prodsize) {
+          var saveprodsize = new ProductSizeService(prodsize);
+          saveprodsize.$save({
+          }).then(function (data) {
+
+              $rootScope.$emit("CallLoadProductsizes", {});
+              $scope.ok();
+            },
+            function () {
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = 'Server Request Error';
+            });
+
+        };
+
+      }
+
+      ModalInstanceCtrl.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ProductSizeService', 'prodsize'];
+
+      function ModalInstanceCtrl($scope, $rootScope, $uibModalInstance, ProductSizeService, prodsize) {
+        var id = prodsize.id;
+        console.log(id);
+
+        $scope.prodsize = prodsize;
+        console.log(prodsize);
+        $scope.ok = function () {
+          $uibModalInstance.close('closed');
+
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+
+     $scope.updateProdSiz= function (prodsize) {
+
+
+          prodsize.$update({
+          }).then(function (data) {
+            var response = angular.fromJson(data);
+            console.log($scope.prodsize);
+            // $scope.authMsg=response.Message;
+            if (response.Status == "1") {
+              $scope.errorMsg = false;
+              $scope.SuccessMsg = response.Message;
+              $scope.prodsize = ProductSizeService.get({
+                id: id,
+              });
+            } else {
+
+              $scope.SuccessMsg = false;
+              $scope.errorMsg = response.Message;
+
+            }
+            $rootScope.$emit("CallLoadProductsizes", {});
+          }, function () {
+            $scope.SuccessMsg = false;
+            $scope.errorMsg = 'Server Request Error';
+          });
+
+        };
+
+      }
+    }
+  }
+
+})();
+
+  (function() {
+      'use strict';
+
+      angular
+          .module('app.jada')
+          .factory('ProductSizeService', ProductSizeService);
+
+      ProductSizeService.$inject = ['$resource','baseJadaERPURL'];
+      function ProductSizeService($resource,baseJadaERPURL) {
+       var data=$resource(baseJadaERPURL+'api/productsize/:id', {id: '@id'},
+      { 'get':    {method:'GET', isArray:false},
+    'save':   {method:'POST'},
+    'query':  {method:'GET', isArray:true},
+    'update': { method:'PUT' },
+    'remove': {method:'DELETE'},
+    'delete': {method:'DELETE'} 
+  });
+       return data
+            
+         
+      }
+
+  })();
 /**=========================================================
    * Module: modals.js Product Type controller
    * Provides a simple way to implement bootstrap modals from templates
@@ -5725,50 +6775,6 @@ angular.module('angle').constant('baseJadaERPURL',
     'use strict';
 
     angular
-        .module('app.loadingbar')
-        .config(loadingbarConfig)
-        ;
-    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
-    function loadingbarConfig(cfpLoadingBarProvider){
-      cfpLoadingBarProvider.includeBar = true;
-      cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .run(loadingbarRun)
-        ;
-    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
-    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
-
-      // Loading bar transition
-      // ----------------------------------- 
-      var thBar;
-      $rootScope.$on('$stateChangeStart', function() {
-          if($('.wrapper > section').length) // check if bar container exists
-            thBar = $timeout(function() {
-              cfpLoadingBar.start();
-            }, 0); // sets a latency Threshold
-      });
-      $rootScope.$on('$stateChangeSuccess', function(event) {
-          event.targetScope.$watch('$viewContentLoaded', function () {
-            $timeout.cancel(thBar);
-            cfpLoadingBar.complete();
-          });
-      });
-
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.locale')
         .config(localeConfig)
         ;
@@ -5818,144 +6824,50 @@ angular.module('angle').constant('baseJadaERPURL',
     }
 })();
 
-/**=========================================================
- * Module: demo-pagination.js
- * Provides a simple demo for pagination
- =========================================================*/
-
 (function() {
     'use strict';
 
     angular
-        .module('app.mailbox')
-        .controller('MailboxController', MailboxController);
-
-    function MailboxController() {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          vm.folders = [
-            {name: 'Inbox',   folder: 'inbox',   alert: 42, icon: 'fa-inbox' },
-            {name: 'Starred', folder: 'starred', alert: 10, icon: 'fa-star' },
-            {name: 'Sent',    folder: 'sent',    alert: 0,  icon: 'fa-paper-plane-o' },
-            {name: 'Draft',   folder: 'draft',   alert: 5,  icon: 'fa-edit' },
-            {name: 'Trash',   folder: 'trash',   alert: 0,  icon: 'fa-trash'}
-          ];
-
-          vm.labels = [
-            {name: 'Red',     color: 'danger'},
-            {name: 'Pink',    color: 'pink'},
-            {name: 'Blue',    color: 'info'},
-            {name: 'Yellow',  color: 'warning'}
-          ];
-
-          vm.mail = {
-            cc: false,
-            bcc: false
-          };
-          // Mailbox editor initial content
-          vm.content = '<p>Type something..</p>';
-        }
+        .module('app.loadingbar')
+        .config(loadingbarConfig)
+        ;
+    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
+    function loadingbarConfig(cfpLoadingBarProvider){
+      cfpLoadingBarProvider.includeBar = true;
+      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.latencyThreshold = 500;
+      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
     }
 })();
-
 (function() {
     'use strict';
 
     angular
-        .module('app.mailbox')
-        .controller('MailFolderController', MailFolderController);
+        .module('app.loadingbar')
+        .run(loadingbarRun)
+        ;
+    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
+    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
 
-    MailFolderController.$inject = ['mails', '$stateParams'];
-    function MailFolderController(mails, $stateParams) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          
-          vm.folder = {};
-          // no filter for inbox
-          vm.folder.folder = $stateParams.folder === 'inbox' ? '' : $stateParams.folder;
-
-          mails.all().then(function(mails){
-            vm.mails = mails;
+      // Loading bar transition
+      // ----------------------------------- 
+      var thBar;
+      $rootScope.$on('$stateChangeStart', function() {
+          if($('.wrapper > section').length) // check if bar container exists
+            thBar = $timeout(function() {
+              cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+      });
+      $rootScope.$on('$stateChangeSuccess', function(event) {
+          event.targetScope.$watch('$viewContentLoaded', function () {
+            $timeout.cancel(thBar);
+            cfpLoadingBar.complete();
           });
-        }
+      });
+
     }
+
 })();
-
-// A RESTful factory for retrieving mails from json file
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.mailbox')
-        .factory('mails', mails);
-
-    mails.$inject = ['$http'];
-    function mails($http) {
-        var service = {
-            all: all,
-            get: get
-        };
-        return service;
-
-        ////////////////
-        
-        function readMails() {
-          var path = 'server/mails.json';
-          return $http.get(path).then(function (resp) {
-            return resp.data.mails;
-          });
-        }
-
-        function all() {
-          return readMails();
-        }
-
-        function get(id) {
-          return readMails().then(function(mails){
-            for (var i = 0; i < mails.length; i++) {
-              if (+mails[i].id === +id) return mails[i];
-            }
-            return null;
-          });
-        }
-    }
-})();
-
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.mailbox')
-        .controller('MailViewController', MailViewController);
-
-    MailViewController.$inject = ['mails', '$stateParams'];
-    function MailViewController(mails, $stateParams) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          mails.get($stateParams.mid).then(function(mail){
-            vm.mail = mail;
-          });
-        }
-    }
-})();
-
 /**=========================================================
  * Module: modals.js
  * Provides a simple way to implement bootstrap modals from templates
@@ -6293,6 +7205,144 @@ angular.module('angle').constant('baseJadaERPURL',
 })();
 
 /**=========================================================
+ * Module: demo-pagination.js
+ * Provides a simple demo for pagination
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mailbox')
+        .controller('MailboxController', MailboxController);
+
+    function MailboxController() {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+          vm.folders = [
+            {name: 'Inbox',   folder: 'inbox',   alert: 42, icon: 'fa-inbox' },
+            {name: 'Starred', folder: 'starred', alert: 10, icon: 'fa-star' },
+            {name: 'Sent',    folder: 'sent',    alert: 0,  icon: 'fa-paper-plane-o' },
+            {name: 'Draft',   folder: 'draft',   alert: 5,  icon: 'fa-edit' },
+            {name: 'Trash',   folder: 'trash',   alert: 0,  icon: 'fa-trash'}
+          ];
+
+          vm.labels = [
+            {name: 'Red',     color: 'danger'},
+            {name: 'Pink',    color: 'pink'},
+            {name: 'Blue',    color: 'info'},
+            {name: 'Yellow',  color: 'warning'}
+          ];
+
+          vm.mail = {
+            cc: false,
+            bcc: false
+          };
+          // Mailbox editor initial content
+          vm.content = '<p>Type something..</p>';
+        }
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mailbox')
+        .controller('MailFolderController', MailFolderController);
+
+    MailFolderController.$inject = ['mails', '$stateParams'];
+    function MailFolderController(mails, $stateParams) {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+          
+          vm.folder = {};
+          // no filter for inbox
+          vm.folder.folder = $stateParams.folder === 'inbox' ? '' : $stateParams.folder;
+
+          mails.all().then(function(mails){
+            vm.mails = mails;
+          });
+        }
+    }
+})();
+
+// A RESTful factory for retrieving mails from json file
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mailbox')
+        .factory('mails', mails);
+
+    mails.$inject = ['$http'];
+    function mails($http) {
+        var service = {
+            all: all,
+            get: get
+        };
+        return service;
+
+        ////////////////
+        
+        function readMails() {
+          var path = 'server/mails.json';
+          return $http.get(path).then(function (resp) {
+            return resp.data.mails;
+          });
+        }
+
+        function all() {
+          return readMails();
+        }
+
+        function get(id) {
+          return readMails().then(function(mails){
+            for (var i = 0; i < mails.length; i++) {
+              if (+mails[i].id === +id) return mails[i];
+            }
+            return null;
+          });
+        }
+    }
+})();
+
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mailbox')
+        .controller('MailViewController', MailViewController);
+
+    MailViewController.$inject = ['mails', '$stateParams'];
+    function MailViewController(mails, $stateParams) {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+          mails.get($stateParams.mid).then(function(mail){
+            vm.mail = mail;
+          });
+        }
+    }
+})();
+
+/**=========================================================
  * Module: navbar-search.js
  * Navbar search toggler * Auto dismiss on ESC key
  =========================================================*/
@@ -6400,6 +7450,238 @@ angular.module('angle').constant('baseJadaERPURL',
         }
     }
 })();
+
+/**=========================================================
+ * Module: demo-notify.js
+ * Provides a simple demo for notify
+ =========================================================*/
+(function() {
+    'use strict';
+
+    angular
+        .module('app.notify')
+        .controller('NotifyDemoCtrl', NotifyDemoCtrl);
+
+    NotifyDemoCtrl.$inject = ['Notify', '$timeout'];
+    function NotifyDemoCtrl(Notify, $timeout) {
+        var vm = this;
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+          vm.msgHtml = '<em class="fa fa-check"></em> Message with icon..';
+
+          vm.notifyMsg = 'Some messages here..';
+          vm.notifyOpts = {
+            status: 'danger',
+            pos: 'bottom-center'
+          };
+
+          // Service usage example
+          $timeout(function(){
+            
+            Notify.alert( 
+                'This is a custom message from notify..', 
+                {status: 'success'}
+            );
+          
+          }, 500);
+        }
+    }
+})();
+
+/**=========================================================
+ * Module: notify.js
+ * Directive for notify plugin
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.notify')
+        .directive('notify', notify);
+
+    notify.$inject = ['$window', 'Notify'];
+    function notify ($window, Notify) {
+
+        var directive = {
+            link: link,
+            restrict: 'A',
+            scope: {
+              options: '=',
+              message: '='
+            }
+        };
+        return directive;
+
+        function link(scope, element) {
+
+          element.on('click', function (e) {
+            e.preventDefault();
+            Notify.alert(scope.message, scope.options);
+          });
+        }
+
+    }
+
+})();
+
+
+/**=========================================================
+ * Module: notify.js
+ * Create a notifications that fade out automatically.
+ * Based on Notify addon from UIKit (http://getuikit.com/docs/addons_notify.html)
+ =========================================================*/
+
+(function() {
+    'use strict';
+    angular
+        .module('app.notify')
+        .service('Notify', Notify);
+
+    Notify.$inject = ['$timeout'];
+    function Notify($timeout) {
+
+        this.alert = notifyAlert;
+
+        ////////////////
+
+        function notifyAlert(msg, opts) {
+            if ( msg ) {
+                $timeout(function(){
+                    $.notify(msg, opts || {});
+                });
+            }
+        }
+    }
+
+})();
+
+/**
+ * Notify Addon definition as jQuery plugin
+ * Adapted version to work with Bootstrap classes
+ * More information http://getuikit.com/docs/addons_notify.html
+ */
+(function($){
+    'use strict';
+    var containers = {},
+        messages   = {},
+        notify     =  function(options){
+            if ($.type(options) === 'string') {
+                options = { message: options };
+            }
+            if (arguments[1]) {
+                options = $.extend(options, $.type(arguments[1]) === 'string' ? {status:arguments[1]} : arguments[1]);
+            }
+            return (new Message(options)).show();
+        },
+        closeAll  = function(group, instantly){
+            var id;
+            if(group) {
+                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+            } else {
+                for(id in messages) { messages[id].close(instantly); }
+            }
+        };
+    var Message = function(options){
+        // var $this = this;
+        this.options = $.extend({}, Message.defaults, options);
+        this.uuid    = 'ID'+(new Date().getTime())+'RAND'+(Math.ceil(Math.random() * 100000));
+        this.element = $([
+            // @geedmo: alert-dismissable enables bs close icon
+            '<div class="uk-notify-message alert-dismissable">',
+                '<a class="close">&times;</a>',
+                '<div>'+this.options.message+'</div>',
+            '</div>'
+        ].join('')).data('notifyMessage', this);
+        // status
+        if (this.options.status) {
+            this.element.addClass('alert alert-'+this.options.status);
+            this.currentstatus = this.options.status;
+        }
+        this.group = this.options.group;
+        messages[this.uuid] = this;
+        if(!containers[this.options.pos]) {
+            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on('click', '.uk-notify-message', function(){
+                $(this).data('notifyMessage').close();
+            });
+        }
+    };
+    $.extend(Message.prototype, {
+        uuid: false,
+        element: false,
+        timout: false,
+        currentstatus: '',
+        group: false,
+        show: function() {
+            if (this.element.is(':visible')) return;
+            var $this = this;
+            containers[this.options.pos].show().prepend(this.element);
+            var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
+            this.element.css({'opacity':0, 'margin-top': -1*this.element.outerHeight(), 'margin-bottom':0}).animate({'opacity':1, 'margin-top': 0, 'margin-bottom':marginbottom}, function(){
+                if ($this.options.timeout) {
+                    var closefn = function(){ $this.close(); };
+                    $this.timeout = setTimeout(closefn, $this.options.timeout);
+                    $this.element.hover(
+                        function() { clearTimeout($this.timeout); },
+                        function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
+                    );
+                }
+            });
+            return this;
+        },
+        close: function(instantly) {
+            var $this    = this,
+                finalize = function(){
+                    $this.element.remove();
+                    if(!containers[$this.options.pos].children().length) {
+                        containers[$this.options.pos].hide();
+                    }
+                    delete messages[$this.uuid];
+                };
+            if(this.timeout) clearTimeout(this.timeout);
+            if(instantly) {
+                finalize();
+            } else {
+                this.element.animate({'opacity':0, 'margin-top': -1* this.element.outerHeight(), 'margin-bottom':0}, function(){
+                    finalize();
+                });
+            }
+        },
+        content: function(html){
+            var container = this.element.find('>div');
+            if(!html) {
+                return container.html();
+            }
+            container.html(html);
+            return this;
+        },
+        status: function(status) {
+            if(!status) {
+                return this.currentstatus;
+            }
+            this.element.removeClass('alert alert-'+this.currentstatus).addClass('alert alert-'+status);
+            this.currentstatus = status;
+            return this;
+        }
+    });
+    Message.defaults = {
+        message: '',
+        status: 'normal',
+        timeout: 5000,
+        group: null,
+        pos: 'top-center'
+    };
+    
+    $.notify          = notify;
+    $.notify.message  = Message;
+    $.notify.closeAll = closeAll;
+    
+    return notify;
+}(jQuery));
 
 /**=========================================================
  * Module: access-login.js
@@ -7220,6 +8502,42 @@ angular.module('angle').constant('baseJadaERPURL',
               title: 'Product Types',
               templateUrl: 'app/pages/product-type.html',
               resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-category', {
+              url: '/product-categories',
+              title: 'Product Categories',
+              templateUrl: 'app/pages/product-category.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-color', {
+              url: '/product-color',
+              title: 'Product Colors',
+              templateUrl: 'app/pages/product-color.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-size', {
+              url: '/product-size',
+              title: 'Product Sizes',
+              templateUrl: 'app/pages/product-size.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-create', {
+              url: '/product-list',
+              title: 'Product List',
+              templateUrl: 'app/pages/product-list.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-cat', {
+              url: '/productlist',
+              title: 'Product By Category',
+              templateUrl: 'app/pages/productbycategory.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-variants', {
+              url: '/product-variants',
+              title: 'Product Variants',
+              templateUrl: 'app/pages/menu-variants.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
           })                                       
           .state('app', {
               url: '/app',
@@ -7941,238 +9259,6 @@ angular.module('angle').constant('baseJadaERPURL',
     }
 
 })();
-
-/**=========================================================
- * Module: demo-notify.js
- * Provides a simple demo for notify
- =========================================================*/
-(function() {
-    'use strict';
-
-    angular
-        .module('app.notify')
-        .controller('NotifyDemoCtrl', NotifyDemoCtrl);
-
-    NotifyDemoCtrl.$inject = ['Notify', '$timeout'];
-    function NotifyDemoCtrl(Notify, $timeout) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          vm.msgHtml = '<em class="fa fa-check"></em> Message with icon..';
-
-          vm.notifyMsg = 'Some messages here..';
-          vm.notifyOpts = {
-            status: 'danger',
-            pos: 'bottom-center'
-          };
-
-          // Service usage example
-          $timeout(function(){
-            
-            Notify.alert( 
-                'This is a custom message from notify..', 
-                {status: 'success'}
-            );
-          
-          }, 500);
-        }
-    }
-})();
-
-/**=========================================================
- * Module: notify.js
- * Directive for notify plugin
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.notify')
-        .directive('notify', notify);
-
-    notify.$inject = ['$window', 'Notify'];
-    function notify ($window, Notify) {
-
-        var directive = {
-            link: link,
-            restrict: 'A',
-            scope: {
-              options: '=',
-              message: '='
-            }
-        };
-        return directive;
-
-        function link(scope, element) {
-
-          element.on('click', function (e) {
-            e.preventDefault();
-            Notify.alert(scope.message, scope.options);
-          });
-        }
-
-    }
-
-})();
-
-
-/**=========================================================
- * Module: notify.js
- * Create a notifications that fade out automatically.
- * Based on Notify addon from UIKit (http://getuikit.com/docs/addons_notify.html)
- =========================================================*/
-
-(function() {
-    'use strict';
-    angular
-        .module('app.notify')
-        .service('Notify', Notify);
-
-    Notify.$inject = ['$timeout'];
-    function Notify($timeout) {
-
-        this.alert = notifyAlert;
-
-        ////////////////
-
-        function notifyAlert(msg, opts) {
-            if ( msg ) {
-                $timeout(function(){
-                    $.notify(msg, opts || {});
-                });
-            }
-        }
-    }
-
-})();
-
-/**
- * Notify Addon definition as jQuery plugin
- * Adapted version to work with Bootstrap classes
- * More information http://getuikit.com/docs/addons_notify.html
- */
-(function($){
-    'use strict';
-    var containers = {},
-        messages   = {},
-        notify     =  function(options){
-            if ($.type(options) === 'string') {
-                options = { message: options };
-            }
-            if (arguments[1]) {
-                options = $.extend(options, $.type(arguments[1]) === 'string' ? {status:arguments[1]} : arguments[1]);
-            }
-            return (new Message(options)).show();
-        },
-        closeAll  = function(group, instantly){
-            var id;
-            if(group) {
-                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
-            } else {
-                for(id in messages) { messages[id].close(instantly); }
-            }
-        };
-    var Message = function(options){
-        // var $this = this;
-        this.options = $.extend({}, Message.defaults, options);
-        this.uuid    = 'ID'+(new Date().getTime())+'RAND'+(Math.ceil(Math.random() * 100000));
-        this.element = $([
-            // @geedmo: alert-dismissable enables bs close icon
-            '<div class="uk-notify-message alert-dismissable">',
-                '<a class="close">&times;</a>',
-                '<div>'+this.options.message+'</div>',
-            '</div>'
-        ].join('')).data('notifyMessage', this);
-        // status
-        if (this.options.status) {
-            this.element.addClass('alert alert-'+this.options.status);
-            this.currentstatus = this.options.status;
-        }
-        this.group = this.options.group;
-        messages[this.uuid] = this;
-        if(!containers[this.options.pos]) {
-            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on('click', '.uk-notify-message', function(){
-                $(this).data('notifyMessage').close();
-            });
-        }
-    };
-    $.extend(Message.prototype, {
-        uuid: false,
-        element: false,
-        timout: false,
-        currentstatus: '',
-        group: false,
-        show: function() {
-            if (this.element.is(':visible')) return;
-            var $this = this;
-            containers[this.options.pos].show().prepend(this.element);
-            var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
-            this.element.css({'opacity':0, 'margin-top': -1*this.element.outerHeight(), 'margin-bottom':0}).animate({'opacity':1, 'margin-top': 0, 'margin-bottom':marginbottom}, function(){
-                if ($this.options.timeout) {
-                    var closefn = function(){ $this.close(); };
-                    $this.timeout = setTimeout(closefn, $this.options.timeout);
-                    $this.element.hover(
-                        function() { clearTimeout($this.timeout); },
-                        function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
-                    );
-                }
-            });
-            return this;
-        },
-        close: function(instantly) {
-            var $this    = this,
-                finalize = function(){
-                    $this.element.remove();
-                    if(!containers[$this.options.pos].children().length) {
-                        containers[$this.options.pos].hide();
-                    }
-                    delete messages[$this.uuid];
-                };
-            if(this.timeout) clearTimeout(this.timeout);
-            if(instantly) {
-                finalize();
-            } else {
-                this.element.animate({'opacity':0, 'margin-top': -1* this.element.outerHeight(), 'margin-bottom':0}, function(){
-                    finalize();
-                });
-            }
-        },
-        content: function(html){
-            var container = this.element.find('>div');
-            if(!html) {
-                return container.html();
-            }
-            container.html(html);
-            return this;
-        },
-        status: function(status) {
-            if(!status) {
-                return this.currentstatus;
-            }
-            this.element.removeClass('alert alert-'+this.currentstatus).addClass('alert alert-'+status);
-            this.currentstatus = status;
-            return this;
-        }
-    });
-    Message.defaults = {
-        message: '',
-        status: 'normal',
-        timeout: 5000,
-        group: null,
-        pos: 'top-center'
-    };
-    
-    $.notify          = notify;
-    $.notify.message  = Message;
-    $.notify.closeAll = closeAll;
-    
-    return notify;
-}(jQuery));
 
 /**=========================================================
  * Module: sidebar-menu.js

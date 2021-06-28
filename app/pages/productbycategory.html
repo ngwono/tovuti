@@ -1,0 +1,47 @@
+<div class="panel b" ng-controller="ProductByCategoryController">
+   <div class="panel-heading col-lg-offset-5">
+      <h4>Product Listing By Category
+      </h4>
+   </div>
+   <div class="row">
+   <div class="form-group">
+       <label class="col-lg-3 control-label text-right">Select a Category</label>
+       <div class="col-lg-5">
+        <select name="category" ng-change="catSearch(product)" class="slider slider-lg form-control" ng-model="product.category"  ng-options="category.id as category.code+' - '+category.description for category in categories"> 
+        <option value="" selected="selected">Category</option>
+      </select>
+   </div>
+    </div>
+ </div>
+   <div class="panel-body">
+      <div class="table-responsive">
+         <table class="table table-striped" datatable="ng">
+            <thead>
+               <tr>
+                  <th>Product Category</th>
+                  <th>Product Type</th>
+                  <th>Product Description</th>
+                  <th>Color</th>
+                  <th>Size</th>
+                  <th>Price</th>
+                  <th>Products</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="product in products">
+                <td>{{product.categoryDesc}}</td>
+                  <td>{{product.typeDesc}}</td>
+                  <td>{{product.description}}</td>
+                  <td>{{product.attribute1Desc}}</td>
+                  <td>{{product.attribute2Desc}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.productDesc}}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="buttons col-lg-offset-3">
+    <button class="btn btn-info pull-center mr" type="button"  ng-click="home()">Back</button>     
+   </div>
+</div>

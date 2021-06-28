@@ -36,6 +36,42 @@
               title: 'Product Types',
               templateUrl: 'app/pages/product-type.html',
               resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-category', {
+              url: '/product-categories',
+              title: 'Product Categories',
+              templateUrl: 'app/pages/product-category.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-color', {
+              url: '/product-color',
+              title: 'Product Colors',
+              templateUrl: 'app/pages/product-color.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-size', {
+              url: '/product-size',
+              title: 'Product Sizes',
+              templateUrl: 'app/pages/product-size.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-create', {
+              url: '/product-list',
+              title: 'Product List',
+              templateUrl: 'app/pages/product-list.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-cat', {
+              url: '/productlist',
+              title: 'Product By Category',
+              templateUrl: 'app/pages/productbycategory.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
+          })
+          .state('page.product-variants', {
+              url: '/product-variants',
+              title: 'Product Variants',
+              templateUrl: 'app/pages/menu-variants.html',
+              resolve: helper.resolveFor('angular-carousel','oitozero.ngSweetAlert','loaders.css', 'spinkit')
           })                                       
           .state('app', {
               url: '/app',
